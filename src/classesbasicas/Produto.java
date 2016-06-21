@@ -5,6 +5,7 @@ public class Produto {
 	private String nome;
 	private double preco;
 	private int estoque;
+	private int indice;
 
 	public Produto(String nome, double preco, int estoque) {
 		this.nome = nome;
@@ -34,5 +35,16 @@ public class Produto {
 
 	public void setEstoque(int estoque) {
 		this.estoque = estoque;
+	}
+	public int getIndice() {
+		return this.indice;
+	}
+
+	public void setEstoque(int indice) {
+		this.indice = indice;
+	}
+	
+	public String toString(){
+		return "Produto: "+this.nome+" Preco: R$"+this.preco+" Quantidade: "+this.estoque+"/n";
 	}
 }
