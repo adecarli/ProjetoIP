@@ -1,6 +1,5 @@
 package dados;
 import classesBasicas.Produto;
-import exceptions.*;
 
 public class RepositorioProdutosLista implements RepositorioProdutos {
 	private Produto produto;
@@ -56,7 +55,7 @@ public class RepositorioProdutosLista implements RepositorioProdutos {
 
 	@Override
 	public void renovarEstoque(Produto produto, int quantidade){
-		//recebe um valor que irá ser inserido no estoque atual
+		//recebe um valor que irï¿½ ser inserido no estoque atual
 		quantidade += produto.getEstoque();
 		produto.setEstoque(quantidade);
 	}
@@ -64,10 +63,11 @@ public class RepositorioProdutosLista implements RepositorioProdutos {
 	public String visualizarEstoque(){
 		String retorno="";
 		if(this.produto!=null){
-			retorno=retorno+arrayProdutos.toString();
+			retorno=retorno+this.produto.toString();
 		}
 		if (this.proximo != null) {
 			this.proximo.cadastrar(produto);
 		}
+		return retorno;
 	}
 }
