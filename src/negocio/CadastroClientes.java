@@ -1,8 +1,7 @@
 package negocio;
-import classesBasicas.Cliente;
 import exceptions.*;
+import classesBasicas.Cliente;
 import dados.RepositorioClientes;
-import dados.RepositorioClientesArray;
 
 
 public class CadastroClientes {
@@ -15,7 +14,7 @@ public class CadastroClientes {
 	}
 	
 	
-	public void cadastrarCliente(Cliente cliente) throws ClienteJaCadastradoException {
+	public void cadastrar(Cliente cliente) throws ClienteJaCadastradoException {
 		if( !( repositorio.existeCliente(cliente.getCPF()) ) ){
 			this.repositorio.inserirCliente(cliente);
 		}else{
@@ -23,16 +22,16 @@ public class CadastroClientes {
 		}
 	}
 	
-	public void removerCliente(Cliente cliente) throws ClienteNaoEncontradoException {
-		if( repositorio.existeCliente(cliente.getCPF() ) ){
-			this.repositorio.removerCliente(cliente.getCPF());
+	public void remover(String cpf) throws ClienteNaoEncontradoException {
+		if( repositorio.existeCliente(cpf)){
+			this.repositorio.removerCliente(cpf);
 		} else {
 			throw new ClienteNaoEncontradoException();
 		}
 		
 	}
 	
-	public void atualizarCliente(Cliente cliente) throws ClienteNaoEncontradoException{
+	public void atualizar(Cliente cliente) throws ClienteNaoEncontradoException{
 		if( repositorio.existeCliente(cliente.getCPF() ) ){
 			this.repositorio.atualizarCliente(cliente);
 		} else {
@@ -40,14 +39,42 @@ public class CadastroClientes {
 		}	
 	}
 	
-	public Cliente procurarCliente(String CPF) throws ClienteNaoEncontradoException{
+	public Cliente procurar(String CPF) throws ClienteNaoEncontradoException{
 		if( repositorio.existeCliente(CPF) ){
 			return this.repositorio.procurarCliente(CPF);
 		} else {
 			throw new ClienteNaoEncontradoException();
 		}
 	}
-	public void adicionarGastosCliente(String CPF, double gasto){
-		repositorio.adicionarGastosCliente(CPF, gasto);
+	
+	public void adicionarGastos(String CPF, Double gastos)throws PrecoInvalidoException, ClienteNaoEncontradoException{
+	if(gastos <= 0){
+		throw new PrecoInvalidoException();
+	} else if(repositorio.existeCliente(CPF)){
+			this.repositorio.adicionarGastosCliente(CPF, gastos);
+	 } else {
+		 throw new ClienteNaoEncontradoException();
+	 }
+		
 	}
-	}	
+	
+	public double gastosCliente(String CPF) throws ClienteNaoEncontradoException{
+		if(repositorio.existeCliente(CPF)){
+			return this.repositorio.gastosCliente(CPF);
+		} else {
+			throw new ClienteNaoEncontradoException();
+		}
+	}
+	
+	public void zerarGastos(String CPF) throws ClienteNaoEncontradoException {
+		if(repositorio.existeCliente(CPF)){
+			this.repositorio.zerarGastosCliente(CPF);
+		} else {
+			throw new ClienteNaoEncontradoException();
+		}
+	}
+	
+
+
+	
+}
