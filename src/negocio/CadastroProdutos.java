@@ -46,4 +46,10 @@ public void renovarEstoque(String nome, int quantidade) throws ProdutoNaoCadastr
 		throw new ProdutoNaoCadastradoException();
 	}
 }
+public String informacoesProduto(Produto produto){
+	return produto.toString();
+}
+public String visualizarEstoque(){
+	return produtos.visualizarEstoque();
+}
 }
