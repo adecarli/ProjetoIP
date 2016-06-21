@@ -1,4 +1,5 @@
-package classesbasicas;
+package classesBasicas;
+
 public class QuartoLuxo extends QuartoAbstrato {
 	private static final double desconto = 0.1;
 	public QuartoLuxo(String numero, double valorDiaria) {

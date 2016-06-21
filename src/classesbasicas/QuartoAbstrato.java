@@ -1,5 +1,4 @@
-package classesbasicas;
-import exceptions.*;
+package classesBasicas;
 
 public abstract class QuartoAbstrato {
 	//O numero do quarto servira como identificador do mesmo
@@ -19,25 +18,17 @@ public abstract class QuartoAbstrato {
 	
 	public abstract void pedido(double valor);
 	
-	public void checkin(Cliente cliente, int dias) throws QuartoOcupadoException {
-		if (this.hospede == null) {
-			this.hospede = cliente;
-			this.total = this.valorDiaria*dias;
-			this.limpo = false;
-		} else {
-			throw new QuartoOcupadoException(this.numero, this.hospede);
-		}
+	public void checkin(Cliente cliente, int dias) {
+		this.hospede = cliente;
+		this.total = this.valorDiaria*dias;
+		this.limpo = false;
 	}
 	
-	public double checkout() throws QuartoVazioException {
-		if (this.hospede != null) {
-			this.hospede = null;
-			double total = this.total;
-			this.total = 0;
-			return total;
-		} else {
-			throw new QuartoVazioException(this.numero);
-		}
+	public double checkout(){
+		this.hospede = null;
+		double total = this.total;
+		this.total = 0;
+		return total;
 	}
 	
 	public void limpar(){
