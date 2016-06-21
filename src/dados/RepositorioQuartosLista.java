@@ -87,7 +87,20 @@ public class RepositorioQuartosLista implements RepositorioQuartos {
 					total += this.quarto.getTotal();
 				}
 			}
-			this.proximo.getGastosCliente(cpfCliente);
+			total += this.proximo.getGastosCliente(cpfCliente);
+			
+		}
+		return total;
+	}
+	public double checkoutCliente(String cpfCliente) {
+		double total = 0;
+		if (this.proximo != null) {
+			if (this.quarto.getHospede() != null) {
+				if (this.quarto.getHospede().getCPF().equals(cpfCliente)) {
+					total += this.quarto.checkout();
+				}
+			}
+			total += this.proximo.checkoutCliente(cpfCliente);
 			
 		}
 		return total;

@@ -8,5 +8,6 @@ public interface RepositorioQuartos {
 	void atualizar(QuartoAbstrato quarto);
 	boolean existe(String numero);
 	double getGastosCliente(String cpfCliente);
+	double checkoutCliente(String cpfCliente);
 
 }

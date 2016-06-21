@@ -77,6 +77,17 @@ public class RepositorioQuartosArray implements RepositorioQuartos {
 		}
 		return total;
 	}
+	public double checkoutCliente(String cpfCliente) {
+		double total = 0;
+		for (int i = 0; i < this.indice; i++) {
+			if (quartos[i].getHospede() != null) {
+				if (quartos[i].getHospede().getCPF().equals(cpfCliente)) {
+					total += quartos[i].checkout();
+				}				
+			}
+		}
+		return total;
+	}
 	public String toString() {
 		String s = "";
 		for (int i = 0; i < indice; i++) {
