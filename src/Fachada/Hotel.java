@@ -1,8 +1,9 @@
-package negocio;
+package fachada;
 
 import classesBasicas.*;
 import dados.*;
 import exceptions.*;
+import negocio.*;
 
 //uma alteração de teste
 //testando
@@ -85,7 +86,8 @@ public class Hotel {
 	
 	//Metodos relacionados a Cliente
 	
-	public void cadastrarCliente(Cliente cliente) throws ClienteJaCadastradoException{
+	public void cadastrarCliente(String nome, String CPF) throws ClienteJaCadastradoException{
+		Cliente cliente = new Cliente(nome,CPF);
 		cadClientes.cadastrar(cliente);
 	}
 	public void atualizarCliente(String nome, String cpf) throws ClienteNaoEncontradoException {
@@ -97,7 +99,7 @@ public class Hotel {
 	}
 	
 	public double checkoutCliente(String cpf) throws ClienteNaoEncontradoException, PrecoInvalidoException { // vai  
-		double gastos = cadQuartos.gastosdoCliente(cpf);
+		double gastos = cadQuartos.gastosCliente(cpf);
 		cadClientes.adicionarGastos(cpf, gastos);
 		gastos = cadClientes.gastosCliente(cpf);
 		return gastos;
