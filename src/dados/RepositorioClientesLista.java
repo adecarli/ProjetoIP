@@ -40,7 +40,7 @@ public class RepositorioClientesLista implements RepositorioClientes {
 
 	public Cliente procurarCliente(String CPF) {
 		Cliente encontrado = null;
-		if(this.cliente!=null || encontrado != null) {	
+		if(this.cliente!=null) {	
 			if (this.cliente.getCPF().equals(CPF)) { //quando encontra um cliente com o CPF igual ao procurado
 				encontrado = this.cliente;	
 			}
@@ -52,25 +52,21 @@ public class RepositorioClientesLista implements RepositorioClientes {
 	}
 
 	public void atualizarCliente(Cliente clienteAtualizado) {
-		boolean achou = false;
-		while (!achou || this.cliente != null) {
-			if (this.cliente.getCPF().equals(clienteAtualizado.getCPF())) {
-				this.cliente = clienteAtualizado;
-				achou = true;
-			}
-			this.cliente = this.next.cliente;
+		if (this.cliente.getCPF().equals(clienteAtualizado.getCPF())) {
+			this.cliente = clienteAtualizado;		
+		} else {
+			this.next.atualizarCliente(clienteAtualizado);
 		}
-		
 	}
-	
+		
 	public boolean existeCliente(String CPF){
 		boolean existe = false;
-		if(this.cliente != null){
+		if(this.next != null){
 			if(this.cliente.getCPF().equals(CPF)){
 				existe = true;
-				return existe;
+			}else {
+				existe = this.next.existeCliente(CPF);
 			}
-			this.next.existeCliente(CPF);
 		}
 		return existe;
 	}
@@ -92,18 +88,19 @@ public class RepositorioClientesLista implements RepositorioClientes {
 		}
 		this.next.zerarGastosCliente(CPF);
 	}
-	
-	
-	public void checkoutCliente(String CPF){
-		boolean achou = false;
-		while(this.cliente != null){
+		
+	public double gastosCliente(String CPF){
+		double gastos = 0;
+		if(this.cliente != null){
 			if(this.cliente.getCPF().equals(CPF)){
-				this.cliente.zerarGastosCliente();
-				achou = true;
+				gastos = this.cliente.getGastos();
+			} else {
+				this.next.gastosCliente(CPF);
 			}
 		}
+		return gastos;
 	}
-
+		
 	public Cliente getCliente() {
 		return cliente;
 	}

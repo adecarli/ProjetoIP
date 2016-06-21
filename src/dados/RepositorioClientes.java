@@ -1,7 +1,7 @@
 package dados;
 
 import classesBasicas.Cliente;
-import exceptions.*;
+
 
 public interface RepositorioClientes {
 
@@ -12,5 +12,6 @@ public interface RepositorioClientes {
 	public boolean existeCliente(String CPF);
 	public void zerarGastosCliente(String CPF);
 	public void adicionarGastosCliente(String CPF, double gasto);
+	public double gastosCliente(String CPF);
 	
 }

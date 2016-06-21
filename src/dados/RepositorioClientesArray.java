@@ -1,8 +1,6 @@
 package dados;
 
 import classesBasicas.Cliente;
-import classesBasicas.QuartoLuxo;
-import classesBasicas.QuartoStandard;
 
 
 public class RepositorioClientesArray implements RepositorioClientes { // cadastrar, remover, procurar, atualizar
@@ -23,7 +21,7 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 			if (ArrayClientes[i].getCPF().equals(CPF)) { 
 				achou = true; //se encontrar o indice, sai do laco e muda o valor da variavel para a excessao
 			} else {
-				i++;				
+				i++;
 			}
 		}
 			return i; //retorna a posicao do cliente no array
@@ -90,7 +88,7 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 	}	
 	public void zerarGastosCliente(String CPF){
 		boolean achou = false;
-			for(int i = 0; i<indice || (!achou); i++){
+			for(int i = 0; i<indice && (!achou); i++){
 				if(ArrayClientes[i].getCPF().equals(CPF)){
 					achou = true;
 					ArrayClientes[i].zerarGastosCliente();
@@ -100,15 +98,26 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 	}
 	public void adicionarGastosCliente(String CPF, double gasto){
 		boolean achou = false;
-			for(int i = 0; i<indice || (!achou); i++){
-				if(ArrayClientes[i].getCPF().equals(CPF)){
-					achou = true;
-					ArrayClientes[i].setGastos(gasto);
-				}
+		for(int i = 0; i<indice && (!achou); i++){
+			if(ArrayClientes[i].getCPF().equals(CPF)){
+				achou = true;
+				ArrayClientes[i].setGastos(gasto);
+			}
 		}
 			
 	}
 	
+	public double gastosCliente(String CPF){
+		boolean achou = false;
+		double gastos = 0;
+		for(int i =0; i<indice && (!achou); i++){
+			if(ArrayClientes[i].getCPF().equals(CPF)){
+				achou = true;
+				gastos = ArrayClientes[i].getGastos();
+			}
+		}
+		return gastos;
+	}
 
 		
 
