@@ -88,8 +88,11 @@ public class Hotel {
 		cadClientes.cadastrar(cliente);
 	}
 	
+<<<<<<< HEAD
 	//Metodos relacionados a Produto
 	
+=======
+>>>>>>> branch 'master' of https://github.com/adecarli/ProjetoIP.git
 	public void cadastrarProduto (String nome, double preco, int quantidade) throws PrecoInvalidoException, ProdutoJaCadastradoException, ProdutoNaoCadastradoException{
 		if(preco<=0){
 			throw new PrecoInvalidoException();
