@@ -1,7 +1,6 @@
 package classesBasicas;
 
 public abstract class QuartoAbstrato {
-	//O numero do quarto servira como identificador do mesmo
 	private String numero;
 	private Cliente hospede;
 	private double valorDiaria;
@@ -15,43 +14,43 @@ public abstract class QuartoAbstrato {
 		this.total = 0;
 		this.limpo = true;
 	}
-	
 	public abstract void pedido(double valor);
-	
-	public void checkin(Cliente cliente, int dias) {
-		this.hospede = cliente;
-		this.total = this.valorDiaria*dias;
+	public void checkin(Cliente hospede, int dias) {
+		this.hospede = hospede;
+		this.total = dias*this.valorDiaria;
 		this.limpo = false;
 	}
-	
-	public double checkout(){
+	public double checkout() {
 		this.hospede = null;
 		double total = this.total;
 		this.total = 0;
+		this.limpo = true;
 		return total;
 	}
-	
-	public void limpar(){
+	public void limpar() {
 		limpo = true;
 	}
-	
-	public Cliente getHospede(){
-		return hospede;
+	public Cliente getHospede() {
+		return this.hospede;
 	}
 	public String getNumero() {
-		return numero;
+		return this.numero;
 	}
 	public double getDiaria() {
-		return valorDiaria;
+		return this.valorDiaria;
 	}
 	protected void setTotal(double total) {
 		this.total = total;
 	}
 	public double getTotal() {
-		return total;
+		return this.total;
 	}
 	public boolean getLimpo() {
-		return limpo;
+		return this.limpo;
 	}
-	
+	public String toString() {
+		String s = "";
+		s += "Numero: " + this.numero + " | Valor da Diaria: " + this.valorDiaria + "\n";
+		return s;
+	}
 }

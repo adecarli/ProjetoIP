@@ -10,5 +10,10 @@ public class QuartoLuxo extends QuartoAbstrato {
 		double novoValor = valor*(1-desconto);
 		this.setTotal(this.getTotal() + novoValor);
 	}
-
+	@Override
+	public String toString() {
+		String s = "";
+		s += "Numero: " + this.getNumero() + " | Valor da Diaria: " + this.getDiaria() + " | Tipo: Luxo\n";
+		return s;
+	}
 }
