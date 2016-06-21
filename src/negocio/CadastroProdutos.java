@@ -4,10 +4,11 @@ import dados.*;
 import exceptions.*;
 public class CadastroProdutos{
 	RepositorioProdutos produtos= new RepositorioProdutosArray();
-	RepositorioClientes clientes= new RepositorioClientesArray();
-public void cadastrarProduto (String nome, double preco, int quantidade) throws ProdutoJaCadastradoException, ProdutoNaoCadastradoException{
-	Produto produto= new Produto (nome, preco, quantidade);
-	Produto compara=produtos.procurar(nome);
+	public CadastroProdutos(){
+		produtos=null;
+	}
+public void cadastrarProduto (Produto produto) throws ProdutoJaCadastradoException, ProdutoNaoCadastradoException{
+	Produto compara=produtos.procurar(produto.getNome());
 	if(compara!=null){
 		throw new ProdutoJaCadastradoException();
 	}
@@ -17,14 +18,19 @@ public void cadastrarProduto (String nome, double preco, int quantidade) throws 
 }
 public void removerProduto(String nome) throws ProdutoNaoCadastradoException{
 	Produto produto=produtos.procurar(nome);
+	if(produto!=null){
 	boolean removido=produtos.remover(produto);
 	if(!removido){
+		throw new ProdutoNaoCadastradoException();
+	}
+	}
+	else{
 		throw new ProdutoNaoCadastradoException();
 	}
 }
 public void atualizarPreco(String nome, double preco) throws ProdutoNaoCadastradoException{
 	Produto produto=produtos.procurar(nome);
-	if (produto.getNome().equals(nome)){
+	if (produto!=null&&produto.getNome().equals(nome)){
 		produtos.atualizarPreco(produto, preco);
 	}
 	else{
@@ -33,7 +39,7 @@ public void atualizarPreco(String nome, double preco) throws ProdutoNaoCadastrad
 }
 public void renovarEstoque(String nome, int quantidade) throws ProdutoNaoCadastradoException{
 	Produto produto=produtos.procurar(nome);
-	if (produto.getNome().equals(nome)){
+	if (produto!=null&&produto.getNome().equals(nome)){
 		produtos.renovarEstoque(produto, quantidade);
 	}
 	else{
