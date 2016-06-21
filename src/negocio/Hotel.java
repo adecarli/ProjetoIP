@@ -61,11 +61,13 @@ public class Hotel {
 	
 	//Metodos relacionados a Funcionario
 	
-	public void cadastrarFuncionario(Funcionario funcionario) throws FuncionarioJaCadastradoException {
+	public void cadastrarFuncionario(String nome, String CPF, String funcao, double salario) throws FuncionarioJaCadastradoException {
+		Funcionario funcionario = new Funcionario(nome, CPF, funcao, salario);
 		cadFuncionarios.cadastrar(funcionario);
 	}
 	
-	public void atualizarFuncionario(Funcionario funcionario) throws FuncionarioNaoEncontradoException{
+	public void atualizarFuncionario(String nome, String CPF, String funcao, double salario) throws FuncionarioNaoEncontradoException{
+		Funcionario funcionario = new Funcionario(nome, CPF, funcao, salario);
 		cadFuncionarios.atualizar(funcionario);
 	}
 	
