@@ -1,7 +1,9 @@
 package Fachada;
 
 public class EstoqueInsuficienteException extends Exception {
-	public EstoqueInsuficienteException(){
-		super("Estoque Insuficiente.");
+	private int quantidade;
+	public EstoqueInsuficienteException(int quantidade){
+		this.quantidade=quantidade;
+		super("Estoque Insuficiente. Estoque atual: "+this.quantidade);
 	}
 }
