@@ -87,7 +87,24 @@ public class Hotel {
 	public void cadastrarCliente(Cliente cliente) throws ClienteJaCadastradoException{
 		cadClientes.cadastrar(cliente);
 	}
+	public void atualizarCliente(String nome, String cpf) throws ClienteNaoEncontradoException {
+		Cliente cliente = new Cliente(nome, cpf);
+		cadClientes.atualizarCliente(cliente);
+	}
+	public void removerCliente(String cpf) throws ClienteNaoEncontradoException {
+		cadClientes.removerCliente(cpf);
+	}
 	
+	/*public void checkoutCliente(String cpf) throws ClienteNaoEncontradoException {
+		double gastos = cadQuartos.getQuarto(cpf)
+		cadClientes.adicionarGastosCliente(CPF, gastos);
+	}*/
+	
+	public void fazerPedido(String cpf, String produto, int qtde) throws ProdutoNaoCadastradoException, ClienteNaoEncontradoException, PrecoInvalidoException{
+		Produto pedido = cadProdutos.procurarProduto(produto);
+		double valor = pedido.getPreco()*qtde;
+		cadClientes.adicionarGastosCliente(cpf, valor);
+	}
 <<<<<<< HEAD
 	//Metodos relacionados a Produto
 	
