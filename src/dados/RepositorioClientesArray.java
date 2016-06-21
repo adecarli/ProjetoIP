@@ -1,6 +1,8 @@
 package dados;
 
 import classesBasicas.Cliente;
+import classesBasicas.QuartoLuxo;
+import classesBasicas.QuartoStandard;
 
 
 public class RepositorioClientesArray implements RepositorioClientes { // cadastrar, remover, procurar, atualizar
@@ -17,11 +19,12 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 	private int getIndiceCliente(String CPF){
 		int i = 0;
 		boolean achou = false;
-		while ( i < indice || !achou) { // procura a posicao do array onde o Cliente procurado esta
+		while ( i < indice && !achou) { // procura a posicao do array onde o Cliente procurado esta
 			if (ArrayClientes[i].getCPF().equals(CPF)) { 
 				achou = true; //se encontrar o indice, sai do laco e muda o valor da variavel para a excessao
+			} else {
+				i++;				
 			}
-			i++;
 		}
 			return i; //retorna a posicao do cliente no array
 	
@@ -104,6 +107,28 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 				}
 		}
 			
+	}
+	//-----Testes
+	public static void main(String[] args) {
+		RepositorioClientesArray rep = new RepositorioClientesArray();
+		Cliente c = new Cliente("Andre", "086");
+		rep.inserirCliente(c);
+		rep.inserirCliente(new Cliente("Malu", "123"));
+		System.out.println(rep.procurarCliente("086").getNome());
+		System.out.println(rep.procurarCliente("123").getNome());
+		rep.removerCliente("086");
+		System.out.println(rep.procurarCliente("123").getNome());
+		rep.inserirCliente(c);
+		c = new Cliente("Andre De Carli", "086");
+		rep.atualizarCliente(c);
+		System.out.println(rep.procurarCliente("086").getNome());
+//		rep.remover("2");
+//		System.out.println(rep.toString());
+//		rep.inserir(new QuartoLuxo("3", 20));
+//		System.out.println(rep.toString());
+//		q = new QuartoStandard("3", 10);
+//		rep.atualizar(q);
+//		System.out.println(rep.toString());
 	}
 
 		
