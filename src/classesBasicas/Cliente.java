@@ -4,16 +4,9 @@ public class Cliente {
 	private String nome;
 	private String CPF;
 	private double gastos;
-	private int vezes;
+
 	
-	
-	
-	public Cliente(String nome, String CPF) { //construtor do Cliente indo pela primeira vez
-		this(nome,CPF,0);
-	}
-	
-	
-	public Cliente(String nome, String CPF, int vezes) { //construtor do Cliente que já veio ao hotel anteriormente
+	public Cliente(String nome, String CPF) { //construtor do Cliente que já veio ao hotel anteriormente
 		this.nome = nome;
 		this.CPF = CPF;
 		this.gastos = 0;	
@@ -44,13 +37,7 @@ public class Cliente {
 		this.gastos =  gastos;
 	}
 	
-	public int getVezes(){
-		return this.vezes;
-	}
-	
-	public void setVezes(){
-		this.vezes++;
-	}
+
 	public void zerarGastosCliente(){
 		this.gastos = 0;
 	}
