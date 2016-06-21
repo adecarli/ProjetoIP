@@ -9,7 +9,7 @@ import classesBasicas.Funcionario;
  *
  */
 public interface RepositorioFuncionarios {
-	
+	//hjkbkhb
 	public void inserir (Funcionario funcionario);
 	public void atualizar (Funcionario funcionario);
 	public void remover (String CPF);
