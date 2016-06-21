@@ -45,7 +45,7 @@ public class Produto {
 	}
 	
 	public String toString(){
-		return "Produto: "+this.nome+" Preco: R$"+this.preco+" Quantidade: "+this.estoque+"/n";
+		return "Produto: "+this.nome+" Preco: R$"+this.preco+" Quantidade: "+this.estoque+"\n";
 	}
 	//-----Testes
 			public static void main(String[] args) {
