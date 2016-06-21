@@ -1,6 +1,8 @@
 package dados;
 import classesBasicas.Funcionario;
 
+///bgfhbfdhbfnbgfhgfhgfgf
+
 public class RepositorioFuncionariosArray implements RepositorioFuncionarios {
 	private Funcionario[] funcionarios;
 	private int indice;
