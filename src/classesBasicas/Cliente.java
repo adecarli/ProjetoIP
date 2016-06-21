@@ -41,7 +41,7 @@ public class Cliente {
 	}
 
 	public void setGastos(Double gastos) {
-		this.gastos = this.gastos + gastos;
+		this.gastos =  gastos;
 	}
 	
 	public int getVezes(){
@@ -53,6 +53,15 @@ public class Cliente {
 	}
 	public void zerarGastosCliente(){
 		this.gastos = 0;
+	}
+	
+	public void totalGastos(Double gastos) {
+		this.gastos = this.gastos + gastos;
+	}
+	public String toString(){
+		String funcionario = "";
+		funcionario += "Nome: " + getNome() + ", CPF: " + getCPF() + ", Gastos: " + getGastos() + ".\n";
+		return funcionario;
 	}
 	
 	
