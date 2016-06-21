@@ -28,4 +28,7 @@ public class CadastroQuartos {
 	public double gastosCliente(String cpf) {
 		return rep.getGastosCliente(cpf);
 	}
+	public double checkoutCliente(String cpf) {
+		return rep.checkoutCliente(cpf);
+	}
 }
