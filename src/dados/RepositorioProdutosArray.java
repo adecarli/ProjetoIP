@@ -15,7 +15,7 @@ public class RepositorioProdutosArray implements RepositorioProdutos {
 		//cadastra o produto no indice atual
 		this.arrayProdutos[this.indice]=produto;
 		this.arrayProdutos[this.indice].setIndice(this.indice);
-		indice++;
+		this.indice++;
 	}
 	@Override
 	public Produto procurar(String nome){
@@ -23,7 +23,7 @@ public class RepositorioProdutosArray implements RepositorioProdutos {
 		Produto retorno=null;
 		boolean achou=false;
 		for (int i=0; i<=indice&&achou==false; i++){
-			if(nome==arrayProdutos[i].getNome()){
+			if(arrayProdutos[i]!=null&&arrayProdutos[i].getNome().equals(nome)){
 				retorno= arrayProdutos[i];
 				achou=true;
 			}
@@ -53,8 +53,7 @@ public class RepositorioProdutosArray implements RepositorioProdutos {
 		quantidade+=produto.getEstoque();
 		produto.setEstoque(quantidade);
 	}
-	public String visualizarEstoque(){
-		String retorno="";
+	public String visualizarEstoque(String retorno){
 		for (int i= 0; i<this.indice;i++){
 			retorno=retorno+arrayProdutos.toString();
 		}

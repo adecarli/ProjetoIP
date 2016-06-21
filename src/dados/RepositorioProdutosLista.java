@@ -14,8 +14,8 @@ public class RepositorioProdutosLista implements RepositorioProdutos {
 	// aqui cadastra
 	public void cadastrar(Produto produto){
 		if (this.proximo == null) {
+			this.produto = produto;
 			this.proximo = new RepositorioProdutosLista();
-			this.proximo.produto = produto;
 		} else {
 			this.proximo.cadastrar(produto);
 		}
@@ -24,22 +24,26 @@ public class RepositorioProdutosLista implements RepositorioProdutos {
 	@Override
 	// aqui procura
 	public Produto procurar(String nome){
-		if (this.produto != null && this.produto.getNome() == nome) {
+		if (this.produto != null && this.produto.getNome().equals(nome)) {
 			return this.produto;
-		} else {
+		} else if (this.proximo!=null){
 				return this.proximo.procurar(nome);
 			}
+		else{
+			return null;
+		}
 	}
 
 	@Override
 	// aqui remove
 	public boolean remover(Produto produto){
 		boolean achou=false;
-		if (this.proximo.produto.getNome() == produto.getNome()) {
-			if (this.proximo.proximo == null) {
-				this.proximo = null;
+		if (this.produto.getNome().equals(produto.getNome())) {
+			if (this.proximo== null) {
+				this.produto = null;
 			} else {
-				this.proximo = this.proximo.proximo;
+				this.produto= this.proximo.produto;
+				this.proximo=this.proximo.proximo;
 			}
 			achou=true;
 		} else {
@@ -60,14 +64,15 @@ public class RepositorioProdutosLista implements RepositorioProdutos {
 		produto.setEstoque(quantidade);
 	}
 	
-	public String visualizarEstoque(){
-		String retorno="";
+	public String visualizarEstoque(String retorno){
 		if(this.produto!=null){
 			retorno=retorno+this.produto.toString();
 		}
 		if (this.proximo != null) {
-			this.proximo.cadastrar(produto);
+			return this.proximo.visualizarEstoque(retorno);
 		}
+		else{
 		return retorno;
+		}
 	}
 }

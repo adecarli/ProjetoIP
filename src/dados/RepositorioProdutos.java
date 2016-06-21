@@ -13,5 +13,5 @@ public interface RepositorioProdutos {
 
 	void renovarEstoque(Produto produto, int quantidade);
 	
-	String visualizarEstoque();
+	String visualizarEstoque(String retorno);
 }
