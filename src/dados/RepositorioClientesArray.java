@@ -1,9 +1,6 @@
 package dados;
 
-import classesbasicas.Cliente;
-import classesbasicas.Produto;
-import dados.RepositorioProdutos;
-import exceptions.*;
+import classesBasicas.Cliente;
 
 
 public class RepositorioClientesArray implements RepositorioClientes { // cadastrar, remover, procurar, atualizar
@@ -88,18 +85,27 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 		return existe;
 		
 	}	
-		public void zerarGastosCliente(String CPF){
-			boolean achou = false;
+	public void zerarGastosCliente(String CPF){
+		boolean achou = false;
 			for(int i = 0; i<indice || (!achou); i++){
 				if(ArrayClientes[i].getCPF().equals(CPF)){
 					achou = true;
 					ArrayClientes[i].zerarGastosCliente();
 				}
-			}
-			
 		}
+			
+	}
+	public void adicionarGastosCliente(String CPF, double gasto){
+		boolean achou = false;
+			for(int i = 0; i<indice || (!achou); i++){
+				if(ArrayClientes[i].getCPF().equals(CPF)){
+					achou = true;
+					ArrayClientes[i].setGastos(gasto);
+				}
+		}
+			
+	}
 
 		
 
 }
-
