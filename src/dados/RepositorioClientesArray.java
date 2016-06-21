@@ -108,28 +108,7 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 		}
 			
 	}
-	//-----Testes
-	public static void main(String[] args) {
-		RepositorioClientesArray rep = new RepositorioClientesArray();
-		Cliente c = new Cliente("Andre", "086");
-		rep.inserirCliente(c);
-		rep.inserirCliente(new Cliente("Malu", "123"));
-		System.out.println(rep.procurarCliente("086").getNome());
-		System.out.println(rep.procurarCliente("123").getNome());
-		rep.removerCliente("086");
-		System.out.println(rep.procurarCliente("123").getNome());
-		rep.inserirCliente(c);
-		c = new Cliente("Andre De Carli", "086");
-		rep.atualizarCliente(c);
-		System.out.println(rep.procurarCliente("086").getNome());
-//		rep.remover("2");
-//		System.out.println(rep.toString());
-//		rep.inserir(new QuartoLuxo("3", 20));
-//		System.out.println(rep.toString());
-//		q = new QuartoStandard("3", 10);
-//		rep.atualizar(q);
-//		System.out.println(rep.toString());
-	}
+	
 
 		
 
