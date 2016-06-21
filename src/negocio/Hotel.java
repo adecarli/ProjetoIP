@@ -87,4 +87,5 @@ public class Hotel {
 	public void cadastrarCliente(Cliente cliente) throws ClienteJaCadastradoException{
 		cadClientes.cadastrar(cliente);
 	}
+	
 }
