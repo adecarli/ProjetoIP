@@ -3,6 +3,6 @@ package exceptions;
 public class FuncionarioJaCadastradoException extends Exception {
 
 	public FuncionarioJaCadastradoException(){
-		super("Funcionario cadastrado");
+		super("Funcionario cadastrado.\n");
 	}
 }

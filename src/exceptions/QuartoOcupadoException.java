@@ -1,5 +1,5 @@
 package exceptions;
-import classesBasicas.Cliente;
+import classesBasicas.*;
 public class QuartoOcupadoException extends Exception {
 	/**
 	 * 
@@ -8,7 +8,7 @@ public class QuartoOcupadoException extends Exception {
 	private String numero;
 	private Cliente cliente; 
 	public QuartoOcupadoException(String numero, Cliente cliente) {
-		super("Quarto ocupado.");
+		super("Quarto ocupado.\n");
 		this.numero = numero;
 		this.cliente = cliente;
 	}
