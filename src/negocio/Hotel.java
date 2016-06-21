@@ -82,20 +82,28 @@ public class Hotel {
 		return cadFuncionarios.procurar(CPF);
 	} 
 	
+	
 	//Metodos relacionados a Cliente
 	
 	public void cadastrarCliente(Cliente cliente) throws ClienteJaCadastradoException{
-		cadClientes.cadastrarCliente(cliente);
+		cadClientes.cadastrar(cliente);
 	}
 	public void atualizarCliente(String nome, String cpf) throws ClienteNaoEncontradoException {
 		Cliente cliente = new Cliente(nome, cpf);
-		cadClientes.atualizarCliente(cliente);
+		cadClientes.atualizar(cliente);
 	}
 	public void removerCliente(String cpf) throws ClienteNaoEncontradoException {
-		Cliente cliente= cadClientes.procurarCliente(cpf);
-		cadClientes.removerCliente(cliente);
+		cadClientes.remover(cpf);
 	}
 	
+	public double checkoutCliente(String cpf) throws ClienteNaoEncontradoException, PrecoInvalidoException { // vai  
+		double gastos = cadQuartos.gastosdoCliente(cpf);
+		cadClientes.adicionarGastos(cpf, gastos);
+		gastos = cadClientes.gastosCliente(cpf);
+		return gastos;
+	}
+	
+
 	//Metodos relacionados a Produto
 	
 	public void cadastrarProduto (String nome, double preco, int quantidade) throws QuantidadeInvalidaException,PrecoInvalidoException, ProdutoJaCadastradoException, ProdutoNaoCadastradoException{
@@ -145,7 +153,7 @@ public class Hotel {
 		//calcula o valor a ser gasto
 		double valor = pedido.getPreco()*qtde;
 		//debita na conta do cliente
-		cadClientes.adicionarGastosCliente(cpf, valor);
+		cadClientes.adicionarGastos(cpf, valor);
 		pedido.setEstoque(pedido.getEstoque()-qtde);
 		}
 		}
