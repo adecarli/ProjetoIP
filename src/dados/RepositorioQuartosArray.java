@@ -1,6 +1,5 @@
 package dados;
-import classesbasicas.QuartoAbstrato;
-import exceptions.*;
+import classesBasicas.QuartoAbstrato;
 
 public class RepositorioQuartosArray implements RepositorioQuartos {
 	private QuartoAbstrato[] quartos;
@@ -20,37 +19,24 @@ public class RepositorioQuartosArray implements RepositorioQuartos {
 		}
 	}
 	@Override
-	public void remover(String numero) throws QuartoNaoEncontradoException {
+	public void remover(String numero) {
 		int i = getIndice(numero);
-		if (i != indice) {
-			indice = indice - 1;
-			quartos[i] = quartos[indice];
-			quartos[indice] = null;
-		} else {
-			throw new QuartoNaoEncontradoException();
-		}
+		indice = indice - 1;
+		quartos[i] = quartos[indice];
+		quartos[indice] = null;
 	}
 
 	@Override
-	public QuartoAbstrato procurar(String numero) throws QuartoNaoEncontradoException {
+	public QuartoAbstrato procurar(String numero){
 		int i = getIndice(numero);
-		if (i != indice) {
-			return quartos[i];
-		} else {
-			throw new QuartoNaoEncontradoException();
-		}
+		return quartos[i];
 	}
 
 	@Override
-	public void atualizar(QuartoAbstrato quarto) throws QuartoNaoEncontradoException {
+	public void atualizar(QuartoAbstrato quarto) {
 		String numero = quarto.getNumero();
 		int i = getIndice(numero);
-		if (i != indice) {
-			quartos[i] = quarto;
-		} else {
-			throw new QuartoNaoEncontradoException();
-		}
-
+		quartos[i] = quarto;
 	}
 
 	@Override
@@ -69,6 +55,18 @@ public class RepositorioQuartosArray implements RepositorioQuartos {
 			}
 		}
 		return i;
+	}
+	@Override
+	public double getGastosCliente(String cpfCliente) {
+		double total = 0;
+		for (int i = 0; i < this.indice; i++) {
+			if (quartos[i].getHospede() != null) {
+				if (quartos[i].getHospede().getCPF().equals(cpfCliente)) {
+					total += quartos[i].getTotal();
+				}				
+			}
+		}
+		return total;
 	}
 
 }

@@ -1,6 +1,5 @@
 package dados;
-import classesbasicas.QuartoAbstrato;
-import exceptions.*;
+import classesBasicas.QuartoAbstrato;
 
 public class RepositorioQuartosLista implements RepositorioQuartos {
 	private QuartoAbstrato quarto;
@@ -34,48 +33,34 @@ public class RepositorioQuartosLista implements RepositorioQuartos {
 
 	}
 	@Override
-	public void remover(String numero) throws QuartoNaoEncontradoException {
-		if (this.quarto != null) {
-			if (this.quarto.getNumero().equals(numero)) {
-				this.quarto = this.proximo.quarto;
-				this.proximo = this.proximo.proximo;
-			} else {
-				this.proximo.remover(numero);
-			}
+	public void remover(String numero){
+		if (this.quarto.getNumero().equals(numero)) {
+			this.quarto = this.proximo.quarto;
+			this.proximo = this.proximo.proximo;
 		} else {
-			throw new QuartoNaoEncontradoException();
-		}
-
-	}
-
-	@Override
-	public QuartoAbstrato procurar(String numero) throws QuartoNaoEncontradoException {
-		if (this.quarto != null) {
-			QuartoAbstrato retorno;
-			if (this.quarto.getNumero().equals(numero)) {
-				retorno = this.quarto;
-			} else {
-				retorno = this.proximo.procurar(numero);
-			}
-			return retorno;
-		} else {
-			throw new QuartoNaoEncontradoException();
+			this.proximo.remover(numero);
 		}
 	}
 
 	@Override
-	public void atualizar(QuartoAbstrato quarto) throws QuartoNaoEncontradoException {
+	public QuartoAbstrato procurar(String numero) {
+		QuartoAbstrato retorno;
+		if (this.quarto.getNumero().equals(numero)) {
+			retorno = this.quarto;
+		} else {
+			retorno = this.proximo.procurar(numero);
+		}
+		return retorno;
+	}
+
+	@Override
+	public void atualizar(QuartoAbstrato quarto) {
 		String numero = quarto.getNumero();
-		if (this.quarto != null) {
-			if (this.quarto.getNumero().equals(numero)) {
-				this.quarto = quarto;
-			} else {
-				this.proximo.atualizar(quarto);
-			}
+		if (this.quarto.getNumero().equals(numero)) {
+			this.quarto = quarto;
 		} else {
-			throw new QuartoNaoEncontradoException();
+			this.proximo.atualizar(quarto);
 		}
-
 	}
 
 	@Override
@@ -91,6 +76,20 @@ public class RepositorioQuartosLista implements RepositorioQuartos {
 			retorno = false;			
 		}
 		return retorno;
+	}
+	@Override
+	public double getGastosCliente(String cpfCliente) {
+		double total = 0;
+		if (this.proximo != null) {
+			if (this.quarto.getHospede() != null) {
+				if (this.quarto.getHospede().getCPF().equals(cpfCliente)) {
+					total += this.quarto.getTotal();
+				}
+			}
+			this.proximo.getGastosCliente(cpfCliente);
+			
+		}
+		return total;
 	}
 
 }
