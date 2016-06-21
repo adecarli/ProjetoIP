@@ -13,7 +13,7 @@ public class Cliente {
 	}
 	
 	
-	public Cliente(String nome, String CPF, int vezes) { //construtor do Cliente que j√° veio ao hotel anteriormente
+	public Cliente(String nome, String CPF, int vezes) { //construtor do Cliente que j· veio ao hotel anteriormente
 		this.nome = nome;
 		this.CPF = CPF;
 		this.gastos = 0;	
