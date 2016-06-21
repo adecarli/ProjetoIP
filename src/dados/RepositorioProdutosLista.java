@@ -56,6 +56,7 @@ public class RepositorioProdutosLista implements RepositorioProdutos {
 
 	@Override
 	public void renovarEstoque(Produto produto, int quantidade){
+		//recebe um valor que irá ser inserido no estoque atual
 		quantidade += produto.getEstoque();
 		produto.setEstoque(quantidade);
 	}
