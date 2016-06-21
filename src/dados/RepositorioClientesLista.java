@@ -83,7 +83,7 @@ public class RepositorioClientesLista implements RepositorioClientes {
 	public void adicionarGastosCliente(String CPF, double gasto){
 		if(this.cliente!=null){
 			if(this.cliente.getCPF().equals(CPF)){	
-				this.cliente.setGastos(gasto);
+				this.cliente.totalGastos(gasto);
 			}
 		}
 		this.next.zerarGastosCliente(CPF);

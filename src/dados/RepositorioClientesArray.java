@@ -101,7 +101,7 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 		for(int i = 0; i<indice && (!achou); i++){
 			if(ArrayClientes[i].getCPF().equals(CPF)){
 				achou = true;
-				ArrayClientes[i].setGastos(gasto);
+				ArrayClientes[i].totalGastos(gasto);
 			}
 		}
 			
