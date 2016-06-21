@@ -25,4 +25,7 @@ public class CadastroQuartos {
 	public void atualizar(QuartoAbstrato quarto) throws QuartoNaoEncontradoException {
 		rep.atualizar(quarto);
 	}
+	public double gastosCliente(String cpf) {
+		return rep.getGastosCliente(cpf);
+	}
 }
