@@ -5,7 +5,6 @@ import exceptions.*;
 
 public class CadastroFuncionarios {
 	private RepositorioFuncionarios repositorio;
-	
 	public CadastroFuncionarios(RepositorioFuncionarios repositorio){
 		this.repositorio = repositorio;
 	}

@@ -8,14 +8,14 @@ import exceptions.*;
 //testando
 
 public class Hotel {
-	private CadastroQuartos cadQuartos=new CadastroQuartos();
-	private CadastroProdutos cadProdutos=new CadastroProdutos();
-	private CadastroClientes cadClientes=new CadastroClientes();
-	private CadastroFuncionarios cadFuncionarios= new CadastroFuncionarios();
+	private CadastroQuartos cadQuartos;
+	private CadastroProdutos cadProdutos;
+	private CadastroClientes cadClientes;
+	private CadastroFuncionarios cadFuncionarios;
 	
 	public Hotel(RepositorioQuartos repQ, RepositorioProdutos repP, RepositorioClientes repC, RepositorioFuncionarios repF) {
 		cadQuartos = new CadastroQuartos(repQ);
-		//cadProdutos = new CadastroProdutos(repP);
+		cadProdutos = new CadastroProdutos(repP);
 		cadClientes = new CadastroClientes(repC);
 		cadFuncionarios = new CadastroFuncionarios(repF);
 	}
@@ -43,7 +43,7 @@ public class Hotel {
 	}
 	public void checkin(String numeroQuarto, String cpfCliente, int numDias) throws QuartoNaoEncontradoException, ClienteNaoEncontradoException, QuartoOcupadoException {
 		QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
-		Cliente cliente = cadClientes.procurar(cpfCliente);
+		Cliente cliente = cadClientes.procurarCliente(cpfCliente);
 		quarto.checkin(cliente, numDias);
 	}
 	//Este metodo relaciona QuartoAbstrato e Cliente
@@ -85,45 +85,37 @@ public class Hotel {
 	//Metodos relacionados a Cliente
 	
 	public void cadastrarCliente(Cliente cliente) throws ClienteJaCadastradoException{
-		cadClientes.cadastrar(cliente);
+		cadClientes.cadastrarCliente(cliente);
 	}
 	public void atualizarCliente(String nome, String cpf) throws ClienteNaoEncontradoException {
 		Cliente cliente = new Cliente(nome, cpf);
 		cadClientes.atualizarCliente(cliente);
 	}
 	public void removerCliente(String cpf) throws ClienteNaoEncontradoException {
-		cadClientes.removerCliente(cpf);
+		Cliente cliente= cadClientes.procurarCliente(cpf);
+		cadClientes.removerCliente(cliente);
 	}
 	
-	/*public void checkoutCliente(String cpf) throws ClienteNaoEncontradoException {
-		double gastos = cadQuartos.getQuarto(cpf)
-		cadClientes.adicionarGastosCliente(CPF, gastos);
-	}*/
-	
-	public void fazerPedido(String cpf, String produto, int qtde) throws ProdutoNaoCadastradoException, ClienteNaoEncontradoException, PrecoInvalidoException{
-		Produto pedido = cadProdutos.procurarProduto(produto);
-		double valor = pedido.getPreco()*qtde;
-		cadClientes.adicionarGastosCliente(cpf, valor);
-	}
-<<<<<<< HEAD
 	//Metodos relacionados a Produto
 	
-=======
->>>>>>> branch 'master' of https://github.com/adecarli/ProjetoIP.git
-	public void cadastrarProduto (String nome, double preco, int quantidade) throws PrecoInvalidoException, ProdutoJaCadastradoException, ProdutoNaoCadastradoException{
+	public void cadastrarProduto (String nome, double preco, int quantidade) throws QuantidadeInvalidaException,PrecoInvalidoException, ProdutoJaCadastradoException, ProdutoNaoCadastradoException{
+		//verifica se o preco é maior que 0
 		if(preco<=0){
 			throw new PrecoInvalidoException();
 		}
+		//verifica se a quantidade é maior que 0
 		if(quantidade<=0){
-			throw new PrecoInvalidoException();
+			throw new QuantidadeInvalidaException();
 		}
 		Produto produto= new Produto (nome, preco, quantidade);
 		cadProdutos.cadastrarProduto(produto);
 	}
 	public void removerProduto(String nome) throws ProdutoNaoCadastradoException{
+		//apenas chama o metodo remover
 		cadProdutos.removerProduto(nome);
 	}
 	public void atualizarPreco(String nome, double preco) throws ProdutoNaoCadastradoException, PrecoInvalidoException{
+		//o preco pode ser invalido
 		if (preco<=0){
 			throw new PrecoInvalidoException();
 		}
@@ -131,6 +123,7 @@ public class Hotel {
 		cadProdutos.atualizarPreco(nome, preco);
 	}
 	public void renovarEstoque(String nome, int quantidade) throws ProdutoNaoCadastradoException, QuantidadeInvalidaException{
+		//se o estoque estiver zerado, lança o erro
 		if (quantidade<=0){
 			throw new QuantidadeInvalidaException();
 		}
@@ -141,16 +134,19 @@ public class Hotel {
 	public void fazerPedido(String cpf, String produto, int qtde) throws EstoqueInsuficienteException,ProdutoNaoCadastradoException, ClienteNaoEncontradoException, PrecoInvalidoException{
 		Produto pedido = cadProdutos.procurarProduto(produto);
 		if (pedido==null){
-			throw new ProdutoNaoCadastrado();
+			throw new ProdutoNaoCadastradoException();
 		}
 		else{
+		//verifica se tem a quantidade certa para fazer uma retirada no estoque
+		if ((pedido.getEstoque()-qtde)<0){
+			throw new EstoqueInsuficienteException(pedido.getEstoque());
+		}
+		else{
+		//calcula o valor a ser gasto
 		double valor = pedido.getPreco()*qtde;
-		if ((pedido.getQuantidade()-qtde)<0){
-			throw new EstoqueInsuficenteException(pedido.getQuantidade());
-		}
-		else{
+		//debita na conta do cliente
 		cadClientes.adicionarGastosCliente(cpf, valor);
-		pedido.setQuantidade(pedido.getQuantidade()-qtde);
+		pedido.setEstoque(pedido.getEstoque()-qtde);
 		}
 		}
 	}

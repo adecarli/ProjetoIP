@@ -1,5 +1,5 @@
 package negocio;
-import classesbasicas.QuartoAbstrato;
+import classesBasicas.*;
 import dados.RepositorioQuartos;
 import exceptions.*;
 

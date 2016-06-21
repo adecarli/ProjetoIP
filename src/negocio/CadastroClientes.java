@@ -1,7 +1,8 @@
 package negocio;
-import classesbasicas.Cliente;
+import classesBasicas.Cliente;
 import exceptions.*;
 import dados.RepositorioClientes;
+import dados.RepositorioClientesArray;
 
 
 public class CadastroClientes {
@@ -14,54 +15,39 @@ public class CadastroClientes {
 	}
 	
 	
-	public void cadastrar(Cliente cliente) throws ClienteJaCadastradoException {
-		if( !( repositorio.existe(cliente.getCPF()) ) ){
-			this.repositorio.inserir(cliente);
+	public void cadastrarCliente(Cliente cliente) throws ClienteJaCadastradoException {
+		if( !( repositorio.existeCliente(cliente.getCPF()) ) ){
+			this.repositorio.inserirCliente(cliente);
 		}else{
 			throw new ClienteJaCadastradoException();
 		}
 	}
 	
-	public void remover(Cliente cliente) throws ClienteNaoEncontradoException {
-		if( repositorio.existe(cliente.getCPF() ) ){
-			this.repositorio.remover(cliente.getCPF());
+	public void removerCliente(Cliente cliente) throws ClienteNaoEncontradoException {
+		if( repositorio.existeCliente(cliente.getCPF() ) ){
+			this.repositorio.removerCliente(cliente.getCPF());
 		} else {
 			throw new ClienteNaoEncontradoException();
 		}
 		
 	}
 	
-	public void atualizar(Cliente cliente) throws ClienteNaoEncontradoException{
-		if( repositorio.existe(cliente.getCPF() ) ){
-			this.repositorio.atualizar(cliente);
+	public void atualizarCliente(Cliente cliente) throws ClienteNaoEncontradoException{
+		if( repositorio.existeCliente(cliente.getCPF() ) ){
+			this.repositorio.atualizarCliente(cliente);
 		} else {
 			throw new ClienteNaoEncontradoException();
 		}	
 	}
 	
-	public Cliente procurar(String CPF) throws ClienteNaoEncontradoException{
-		if( repositorio.existe(CPF) ){
-			return this.repositorio.procurar(CPF);
+	public Cliente procurarCliente(String CPF) throws ClienteNaoEncontradoException{
+		if( repositorio.existeCliente(CPF) ){
+			return this.repositorio.procurarCliente(CPF);
 		} else {
 			throw new ClienteNaoEncontradoException();
 		}
 	}
-	
-	public void pedido(String produto, String CPF) throws ClienteNaoEncontradoException, ProdutoNaoCadastradoException{
-		if( !(repositorio.existe(CPF ) ) ){ // falta ver se o produto existe 
-			throw new ClienteNaoEncontradoException();
-		}
-		/*else if(! produto nao existe){
-			throw new ProdutoNaoCadastrado();
-		}*/
-	
-		else{
-			this.repositorio.pedido(produto, CPF);
-			
-		}
-	
+	public void adicionarGastosCliente(String CPF, double gasto){
+		repositorio.adicionarGastosCliente(CPF, gasto);
 	}
-	
-
-	
-}
+	}	
