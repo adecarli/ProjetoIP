@@ -1,6 +1,6 @@
 package negocio;
 
-import classesbasicas.*;
+import classesBasicas.*;
 import dados.*;
 import exceptions.*;
 
@@ -12,7 +12,7 @@ public class Hotel {
 	
 	public Hotel(RepositorioQuartos repQ, RepositorioProdutos repP, RepositorioClientes repC, RepositorioFuncionarios repF) {
 		cadQuartos = new CadastroQuartos(repQ);
-		cadProdutos = new CadastroProdutos(repP);
+		//cadProdutos = new CadastroProdutos(repP);
 		cadClientes = new CadastroClientes(repC);
 		cadFuncionarios = new CadastroFuncionarios(repF);
 	}
@@ -43,18 +43,19 @@ public class Hotel {
 		Cliente cliente = cadClientes.procurar(cpfCliente);
 		quarto.checkin(cliente, numDias);
 	}
-	//Este método relaciona QuartoAbstrato e Cliente
-	//Possibilidades: Ao invés de o método retornar um double, ele retorna void e acrescenta
+	//Este metodo relaciona QuartoAbstrato e Cliente
+	//Possibilidades: Ao inves de o metodo retornar um double, ele retorna void e acrescenta
 	//o valor recebido por "quarto.checkout()" ao atributo "gastos" de Cliente
 	public double checkout(String numeroQuarto) throws QuartoNaoEncontradoException, QuartoVazioException {
 		QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
 		double total = quarto.checkout();
 		return total;
 	}
-	//Este método relaciona QuartoAbstrato e Funcionario
-	public void limparQuarto(String numeroQuarto, String cpfFuncionario) throws QuartoNaoEncontradoException, FuncionarioNaoEncontradoException {
+	//Este metodo relaciona QuartoAbstrato e Funcionario
+	public void limparQuarto(String numeroQuarto, String cpfFuncionario, double gorjeta) throws QuartoNaoEncontradoException, FuncionarioNaoEncontradoException {
 		QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
 		Funcionario funcionario = cadFuncionarios.procurar(cpfFuncionario);
+		funcionario.trabalhar(gorjeta);
 		quarto.limpar();
 	}
 	
@@ -63,6 +64,18 @@ public class Hotel {
 	public void cadastrarFuncionario(Funcionario funcionario) throws FuncionarioJaCadastradoException {
 		cadFuncionarios.cadastrar(funcionario);
 	}
+	
+	public void atualizarFuncionario(Funcionario funcionario) throws FuncionarioNaoEncontradoException{
+		cadFuncionarios.atualizar(funcionario);
+	}
+	
+	public void removerFuncionario(String CPF) throws FuncionarioNaoEncontradoException{
+		cadFuncionarios.remover(CPF);
+	}
+	
+	public Funcionario procurarFuncionario(String CPF) throws FuncionarioNaoEncontradoException{
+		return cadFuncionarios.procurar(CPF);
+	} 
 	
 	//Metodos relacionados a Cliente
 	

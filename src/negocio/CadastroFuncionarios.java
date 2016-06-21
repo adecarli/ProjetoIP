@@ -10,7 +10,7 @@ public class CadastroFuncionarios {
 		this.repositorio = repositorio;
 	}
 	
-	public void cadastrarFuncionario(Funcionario funcionario) throws FuncionarioJaCadastradoException{
+	public void cadastrar(Funcionario funcionario) throws FuncionarioJaCadastradoException{
 		if (!repositorio.existe(funcionario.getCPF())) {
 			repositorio.inserir(funcionario);
 		} else {
@@ -18,7 +18,7 @@ public class CadastroFuncionarios {
 		}
 	}
 	
-	public void atualizarFuncionario(Funcionario funcionario) throws FuncionarioNaoEncontradoException{
+	public void atualizar(Funcionario funcionario) throws FuncionarioNaoEncontradoException{
 		if (repositorio.existe(funcionario.getCPF())) {
 			repositorio.atualizar(funcionario);
 		} else {
@@ -26,7 +26,7 @@ public class CadastroFuncionarios {
 		}
 	}
 	
-	public void removerFuncionario(String CPF) throws FuncionarioNaoEncontradoException{
+	public void remover(String CPF) throws FuncionarioNaoEncontradoException{
 		if (repositorio.existe(CPF)) {
 			repositorio.remover(CPF);
 		} else {
@@ -34,7 +34,7 @@ public class CadastroFuncionarios {
 		}
 	}
 	
-	public Funcionario procurarFuncionario(String CPF) throws FuncionarioNaoEncontradoException{
+	public Funcionario procurar(String CPF) throws FuncionarioNaoEncontradoException{
 		Funcionario retorno;
 		if (repositorio.existe(CPF)) {
 			retorno = repositorio.procurar(CPF);
