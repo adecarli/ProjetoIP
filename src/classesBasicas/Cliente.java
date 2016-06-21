@@ -1,4 +1,4 @@
-package classesbasicas;
+package classesBasicas;
 
 public class Cliente {
 	private String nome;
