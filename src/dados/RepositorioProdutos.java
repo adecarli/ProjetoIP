@@ -12,4 +12,6 @@ public interface RepositorioProdutos {
 	void atualizarPreco(Produto produto, double preco);
 
 	void renovarEstoque(Produto produto, int quantidade);
+	
+	String visualizarEstoque();
 }

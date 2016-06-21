@@ -53,4 +53,11 @@ public class RepositorioProdutosArray implements RepositorioProdutos {
 		quantidade+=produto.getEstoque();
 		produto.setEstoque(quantidade);
 	}
+	public String visualizarEstoque(){
+		String retorno="";
+		for (int i= 0; i<this.indice;i++){
+			retorno=retorno+arrayProdutos.toString();
+		}
+		return retorno;
+	}
 }

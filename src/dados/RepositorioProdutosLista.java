@@ -60,4 +60,14 @@ public class RepositorioProdutosLista implements RepositorioProdutos {
 		quantidade += produto.getEstoque();
 		produto.setEstoque(quantidade);
 	}
+	
+	public String visualizarEstoque(){
+		String retorno="";
+		if(this.produto!=null){
+			retorno=retorno+arrayProdutos.toString();
+		}
+		if (this.proximo != null) {
+			this.proximo.cadastrar(produto);
+		}
+	}
 }
