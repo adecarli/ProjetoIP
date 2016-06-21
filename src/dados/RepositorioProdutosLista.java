@@ -5,7 +5,7 @@ public class RepositorioProdutosLista implements RepositorioProdutos {
 	private Produto produto;
 	private RepositorioProdutosLista proximo;
 
-	RepositorioProdutosLista() {
+	public RepositorioProdutosLista() {
 		this.produto = null;
 		this.proximo = null;
 	}
