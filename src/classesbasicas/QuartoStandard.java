@@ -1,4 +1,5 @@
-package classesbasicas;
+package classesBasicas;
+
 public class QuartoStandard extends QuartoAbstrato {
 	public QuartoStandard(String numero, double valorDiaria) {
 		super(numero, valorDiaria);
