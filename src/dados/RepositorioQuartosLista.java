@@ -1,5 +1,7 @@
 package dados;
 import classesBasicas.QuartoAbstrato;
+import classesBasicas.QuartoLuxo;
+import classesBasicas.QuartoStandard;
 
 public class RepositorioQuartosLista implements RepositorioQuartos {
 	private QuartoAbstrato quarto;
@@ -91,5 +93,12 @@ public class RepositorioQuartosLista implements RepositorioQuartos {
 		}
 		return total;
 	}
-
+	public String toString() {
+		String s = "";
+		if (this.proximo != null) {
+			s += this.quarto.toString();
+			s += this.proximo.toString();
+		}
+		return s;
+	}
 }

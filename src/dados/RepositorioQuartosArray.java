@@ -1,22 +1,33 @@
 package dados;
+
 import classesBasicas.QuartoAbstrato;
+import classesBasicas.QuartoLuxo;
+import classesBasicas.QuartoStandard;
 
 public class RepositorioQuartosArray implements RepositorioQuartos {
 	private QuartoAbstrato[] quartos;
 	private int indice;
+	private static final int size = 10;
 	
-	public RepositorioQuartosArray(int maximo) {
-		quartos = new QuartoAbstrato[maximo];
+	public RepositorioQuartosArray() {
+		quartos = new QuartoAbstrato[size];
 		indice = 0;
 	}
 	@Override
+	//Método para inserir um quarto no repositório.
+	//Se o array original já estiver cheio, crie um novo com o tamanho do original + constante
+	//Após copiar todas as entradas do array antigo para o array novo, redirecione a variavel original para o array novo.
+	//Em seguida, insira normalmente.
 	public void inserir(QuartoAbstrato quarto)  {
-		if (indice < quartos.length) {
-			quartos[indice] = quarto;
-			indice++;
-		} else {
-			;
+		if (indice >= quartos.length) {
+			QuartoAbstrato[] q = new QuartoAbstrato[quartos.length + size];
+			for (int i = 0; i < indice; i++) {
+				q[i] = quartos[i];
+			}
+			quartos = q;
 		}
+		quartos[indice] = quarto;
+		indice++;
 	}
 	@Override
 	public void remover(String numero) {
@@ -48,7 +59,7 @@ public class RepositorioQuartosArray implements RepositorioQuartos {
 		int i = 0;
 		boolean achou = false;
 		while (!achou && i < indice) {
-			if (quartos[indice].getNumero().equals(numero)) {
+			if (quartos[i].getNumero().equals(numero)) {
 				achou = true;
 			} else {
 				i = i + 1;
@@ -68,5 +79,11 @@ public class RepositorioQuartosArray implements RepositorioQuartos {
 		}
 		return total;
 	}
-
+	public String toString() {
+		String s = "";
+		for (int i = 0; i < indice; i++) {
+			s += quartos[i].toString();
+		}
+		return s;
+	}
 }
