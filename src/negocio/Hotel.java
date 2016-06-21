@@ -87,6 +87,9 @@ public class Hotel {
 	public void cadastrarCliente(Cliente cliente) throws ClienteJaCadastradoException{
 		cadClientes.cadastrar(cliente);
 	}
+	
+	//Metodos relacionados a Produto
+	
 	public void cadastrarProduto (String nome, double preco, int quantidade) throws PrecoInvalidoException, ProdutoJaCadastradoException, ProdutoNaoCadastradoException{
 		if(preco<=0){
 			throw new PrecoInvalidoException();
