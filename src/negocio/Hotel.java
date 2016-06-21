@@ -43,7 +43,7 @@ public class Hotel {
 	}
 	public void checkin(String numeroQuarto, String cpfCliente, int numDias) throws QuartoNaoEncontradoException, ClienteNaoEncontradoException, QuartoOcupadoException {
 		QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
-		Cliente cliente = cadClientes.procurarCliente(cpfCliente);
+		Cliente cliente = cadClientes.procurar(cpfCliente);
 		quarto.checkin(cliente, numDias);
 	}
 	//Este metodo relaciona QuartoAbstrato e Cliente
