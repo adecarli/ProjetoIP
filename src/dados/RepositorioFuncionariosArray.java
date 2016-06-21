@@ -2,7 +2,7 @@ package dados;
 import classesBasicas.Funcionario;
 
 ///bgfhbfdhbfnbgfhgfhgfgf
-
+// jjj
 public class RepositorioFuncionariosArray implements RepositorioFuncionarios {
 	private Funcionario[] funcionarios;
 	private int indice;
