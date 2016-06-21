@@ -13,7 +13,7 @@ public class RepositorioProdutosLista implements RepositorioProdutos {
 
 	@Override
 	// aqui cadastra
-	public void cadastrar(Produto produto) throws ProdutoJaCadastradoException {
+	public void cadastrar(Produto produto){
 		if (this.proximo == null) {
 			this.proximo = new RepositorioProdutosLista();
 			this.proximo.produto = produto;
@@ -24,7 +24,7 @@ public class RepositorioProdutosLista implements RepositorioProdutos {
 
 	@Override
 	// aqui procura
-	public Produto procurar(String nome) throws ProdutoNaoCadastradoException {
+	public Produto procurar(String nome){
 		if (this.produto != null && this.produto.getNome() == nome) {
 			return this.produto;
 		} else {
@@ -34,7 +34,7 @@ public class RepositorioProdutosLista implements RepositorioProdutos {
 
 	@Override
 	// aqui remove
-	public boolean remover(Produto produto) throws ProdutoNaoCadastradoException {
+	public boolean remover(Produto produto){
 		boolean achou=false;
 		if (this.proximo.produto.getNome() == produto.getNome()) {
 			if (this.proximo.proximo == null) {
@@ -50,12 +50,12 @@ public class RepositorioProdutosLista implements RepositorioProdutos {
 	}
 
 	@Override
-	public void atualizarPreco(Produto produto, double preco) throws ProdutoNaoCadastradoException {
+	public void atualizarPreco(Produto produto, double preco){
 		produto.setPreco(preco);
 	}
 
 	@Override
-	public void renovarEstoque(Produto produto, int quantidade) throws ProdutoNaoCadastradoException {
+	public void renovarEstoque(Produto produto, int quantidade){
 		quantidade += produto.getEstoque();
 		produto.setEstoque(quantidade);
 	}

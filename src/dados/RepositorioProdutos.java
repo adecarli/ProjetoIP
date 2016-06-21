@@ -3,13 +3,13 @@ import classesBasicas.Produto;
 import exceptions.*;
 
 public interface RepositorioProdutos {
-	void cadastrar(Produto produto) throws ProdutoJaCadastradoException;
+	void cadastrar(Produto produto);
 
-	Produto procurar(String nome) throws ProdutoNaoCadastradoException;
+	Produto procurar(String nome);
 
-	boolean remover(Produto produto) throws ProdutoNaoCadastradoException;
+	boolean remover(Produto produto);
 
-	void atualizarPreco(Produto produto, double preco) throws ProdutoNaoCadastradoException;
+	void atualizarPreco(Produto produto, double preco);
 
-	void renovarEstoque(Produto produto, int quantidade) throws ProdutoNaoCadastradoException;
+	void renovarEstoque(Produto produto, int quantidade);
 }

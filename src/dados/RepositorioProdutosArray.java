@@ -1,6 +1,6 @@
 package dados;
 
-import classesbasicas.Produto;
+import classesBasicas.Produto;
 import exceptions.*;
 
 public class RepositorioProdutosArray implements RepositorioProdutos {
@@ -11,12 +11,12 @@ public class RepositorioProdutosArray implements RepositorioProdutos {
 		this.indice = 0;
 	}
 	@Override
-	public void cadastrar(Produto produto) throws ProdutoJaCadastradoException {
+	public void cadastrar(Produto produto){
 		this.arrayProdutos[indice]=produto;
 		indice++;
 	}
 	@Override
-	public Produto procurar(String nome) throws ProdutoNaoCadastradoException {
+	public Produto procurar(String nome){
 		Produto retorno=null;
 		boolean achou=false;
 		for (int i=0; i<=indice&&achou==false; i++){
@@ -28,21 +28,23 @@ public class RepositorioProdutosArray implements RepositorioProdutos {
 		return retorno;
 	}
 	@Override
-	public void remover(String nome) throws ProdutoNaoCadastradoException {
-		int remover=procurar(nome).getIndice();
-		arrayProdutos[remover]=arrayProdutos[indice-1];
-		arrayProdutos[remover].setIndice(remover);
+	public boolean remover(Produto produto){
+		boolean removido=false;
+		if (produto!=null){
+		arrayProdutos[produto.getIndice()]=arrayProdutos[indice-1];
+		arrayProdutos[produto.getIndice()].setIndice(produto.getIndice());
 		indice--;
+		removido=true;
+		}
+		return removido;
 	}
 	@Override
-	public void atualizarPreco(String nome, double preco) throws ProdutoNaoCadastradoException {
-		int atualizar=procurar(nome).getIndice();
-		arrayProdutos[atualizar].setPreco(preco);
+	public void atualizarPreco(Produto produto, double preco){
+		produto.setPreco(preco);
 	}
 	@Override
-	public void renovarEstoque(String nome, int quantidade) throws ProdutoNaoCadastradoException {
-		int atualizar=procurar(nome).getIndice();
-		quantidade+=arrayProdutos[atualizar].getEstoque();
-		arrayProdutos[atualizar].setEstoque(quantidade);
+	public void renovarEstoque(Produto produto, int quantidade){
+		quantidade+=produto.getEstoque();
+		produto.setEstoque(quantidade);
 	}
 }
