@@ -1,7 +1,6 @@
 package dados;
+
 import classesBasicas.QuartoAbstrato;
-import classesBasicas.QuartoLuxo;
-import classesBasicas.QuartoStandard;
 
 public class RepositorioQuartosLista implements RepositorioQuartos {
 	private QuartoAbstrato quarto;

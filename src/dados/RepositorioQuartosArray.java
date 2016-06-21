@@ -1,8 +1,6 @@
 package dados;
 
 import classesBasicas.QuartoAbstrato;
-import classesBasicas.QuartoLuxo;
-import classesBasicas.QuartoStandard;
 
 public class RepositorioQuartosArray implements RepositorioQuartos {
 	private QuartoAbstrato[] quartos;
