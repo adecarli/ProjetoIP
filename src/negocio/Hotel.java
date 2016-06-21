@@ -4,6 +4,9 @@ import classesBasicas.*;
 import dados.*;
 import exceptions.*;
 
+//uma alteração de teste
+//testando
+
 public class Hotel {
 	private CadastroQuartos cadQuartos;
 	private CadastroProdutos cadProdutos;
