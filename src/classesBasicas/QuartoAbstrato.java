@@ -36,6 +36,9 @@ public abstract class QuartoAbstrato {
 	public String getNumero() {
 		return this.numero;
 	}
+	public void setDiaria(double valorDiaria) {
+		this.valorDiaria = valorDiaria;
+	}
 	public double getDiaria() {
 		return this.valorDiaria;
 	}
@@ -50,7 +53,12 @@ public abstract class QuartoAbstrato {
 	}
 	public String toString() {
 		String s = "";
-		s += "Numero: " + this.numero + " | Valor da Diaria: " + this.valorDiaria + "\n";
+		s += "Numero: " + this.numero + " | Valor da Diaria: " + this.valorDiaria + " | Gastos: " + this.total;
+		if (this.hospede == null) {
+			s += " | Status: Disponivel";
+		} else {
+			s += " | Status: Ocupado";
+		}
 		return s;
 	}
 }

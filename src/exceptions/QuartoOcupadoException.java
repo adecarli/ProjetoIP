@@ -8,7 +8,7 @@ public class QuartoOcupadoException extends Exception {
 	private String numero;
 	private Cliente cliente; 
 	public QuartoOcupadoException(String numero, Cliente cliente) {
-		super("Quarto ocupado.\n");
+		super("Quarto ocupado.");
 		this.numero = numero;
 		this.cliente = cliente;
 	}
