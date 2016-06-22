@@ -3,6 +3,7 @@ package negocio;
 import classesBasicas.*;
 import dados.*;
 import exceptions.*;
+import negocio.CadastroFuncionarios;
 
 //uma alteração de teste
 //testando
@@ -96,6 +97,11 @@ public class Hotel {
 		return cadFuncionarios.procurar(CPF);
 	} 
 	
+	public String listarFuncionarios(){
+		String listagem = "Listagem de Funcionarios: \n" + cadFuncionarios.toString();
+		return listagem;
+	}
+	
 	//Metodos relacionados a Cliente
 	
 	public void cadastrarCliente(String nome, String cpf) throws ClienteJaCadastradoException{
@@ -107,8 +113,8 @@ public class Hotel {
 		cadClientes.atualizarCliente(cliente);
 	}
 	public void removerCliente(String cpf) throws ClienteNaoEncontradoException {
-		Cliente cliente= cadClientes.procurar(cpf);
-		cadClientes.remover(cpf);
+		Cliente cliente= cadClientes.procurarCliente(cpf);
+		cadClientes.removerCliente(cliente);
 	}
 	public double checkoutCliente(String cpf) throws ClienteNaoEncontradoException, PrecoInvalidoException { // vai  
 		double gastos = cadQuartos.checkoutCliente(cpf);
