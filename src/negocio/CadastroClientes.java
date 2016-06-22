@@ -47,10 +47,8 @@ public class CadastroClientes {
 		}
 	}
 	
-	public void adicionarGastos(String CPF, Double gastos)throws PrecoInvalidoException, ClienteNaoEncontradoException{
-	if(gastos <= 0){
-		throw new PrecoInvalidoException();
-	} else if(repositorio.existeCliente(CPF)){
+	public void adicionarGastos(String CPF, Double gastos)throws ClienteNaoEncontradoException{
+	if(repositorio.existeCliente(CPF)){
 			this.repositorio.adicionarGastosCliente(CPF, gastos);
 	 } else {
 		 throw new ClienteNaoEncontradoException();
@@ -73,7 +71,9 @@ public class CadastroClientes {
 			throw new ClienteNaoEncontradoException();
 		}
 	}
-	
+	public String toString() {
+		return this.repositorio.toString();
+	}
 
 
 	
