@@ -185,7 +185,7 @@ public class Hotel {
 		double gastos = cadQuartos.checkoutCliente(cpf);
 		cadClientes.adicionarGastos(cpf, gastos);
 		gastos = cadClientes.gastosCliente(cpf);
-		cadClientes.remover(cpf);
+		cadClientes.zerarGastos(cpf);
 		return gastos;
 	}
 	
