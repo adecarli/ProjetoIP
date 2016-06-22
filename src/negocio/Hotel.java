@@ -98,8 +98,9 @@ public class Hotel {
 	
 	//Metodos relacionados a Cliente
 	
-	public void cadastrarCliente(Cliente cliente) throws ClienteJaCadastradoException{
-		cadClientes.cadastrarCliente(cliente);
+	public void cadastrarCliente(String nome, String cpf) throws ClienteJaCadastradoException{
+		Cliente cliente = new Cliente(nome, cpf);
+		cadClientes.cadastrar(cliente);
 	}
 	public void atualizarCliente(String nome, String cpf) throws ClienteNaoEncontradoException {
 		Cliente cliente = new Cliente(nome, cpf);
@@ -167,7 +168,7 @@ public class Hotel {
 		//calcula o valor a ser gasto
 		double valor = pedido.getPreco()*qtde;
 		//debita na conta do cliente
-		cadClientes.adicionarGastosCliente(cpf, valor);
+		cadClientes.adicionarGastos(cpf, valor);
 		pedido.setEstoque(pedido.getEstoque()-qtde);
 		}
 		}
