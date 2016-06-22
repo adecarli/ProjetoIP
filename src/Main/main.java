@@ -101,6 +101,10 @@ public class main {
 			System.out.println(e.getMessage());
 		}
 		
+		//imprimindo listagem de Funcionarios
+		
+		System.out.println(hotel.listarFuncionarios());
+		
 		//cadastrando com preco invalido o primeiro produto
 		try{
 			hotel.cadastrarProduto("Agua",0.00, 2);
