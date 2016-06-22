@@ -22,9 +22,10 @@ public void cadastrarProduto (Produto produto) throws ProdutoJaCadastradoExcepti
 		else{
 			RepositorioProdutosArray auxiliar= (RepositorioProdutosArray) produtos;
 			produtos= new RepositorioProdutosArray(auxiliar.getTamanho()+10);
-			for (int i=0; i<produtos.getTamanho(); i++){
+			for (int i=0; i<auxiliar.getTamanho(); i++){
 				produtos.cadastrar(auxiliar.getProduto(i));
 			}
+			produtos.cadastrar(produto);
 		}
 	}
 }

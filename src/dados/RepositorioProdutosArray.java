@@ -38,7 +38,7 @@ public class RepositorioProdutosArray implements RepositorioProdutos {
 		//retorna o produto procurado ou null se não achar nenhum
 		Produto retorno=null;
 		boolean achou=false;
-		for (int i=0; i<=indice&&achou==false; i++){
+		for (int i=0; i<=indice&&i<tamanho&&achou==false; i++){
 			if(arrayProdutos[i]!=null&&arrayProdutos[i].getNome().equals(nome)){
 				retorno= arrayProdutos[i];
 				achou=true;
