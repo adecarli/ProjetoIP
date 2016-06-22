@@ -12,6 +12,8 @@ public class Hotel {
 	private CadastroProdutos cadProdutos;
 	private CadastroClientes cadClientes;
 	private CadastroFuncionarios cadFuncionarios;
+	private static final double taxaLimpeza = 2;
+	
 	public Hotel(){
 		
 	}
@@ -45,20 +47,30 @@ public class Hotel {
 	}
 	public void checkin(String numeroQuarto, String cpfCliente, int numDias) throws QuartoNaoEncontradoException, ClienteNaoEncontradoException, QuartoOcupadoException {
 		QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
-		Cliente cliente = cadClientes.procurarCliente(cpfCliente);
-		quarto.checkin(cliente, numDias);
+		Cliente cliente = cadClientes.procurar(cpfCliente);
+		if (quarto.getHospede() == null) {			
+			quarto.checkin(cliente, numDias);
+		} else {
+			throw new QuartoOcupadoException(numeroQuarto, quarto.getHospede());
+		}
 	}
 	//Este metodo relaciona QuartoAbstrato e Cliente
 	//Possibilidades: Ao inves de o metodo retornar um double, ele retorna void e acrescenta
 	//o valor recebido por "quarto.checkout()" ao atributo "gastos" de Cliente
-	public double checkout(String numeroQuarto) throws QuartoNaoEncontradoException, QuartoVazioException {
+	public void checkoutQuarto(String numeroQuarto) throws QuartoNaoEncontradoException, QuartoVazioException {
 		QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
+		Cliente hospede = quarto.getHospede();
 		double total = quarto.checkout();
-		return total;
+		hospede.totalGastos(total);
+	}
+	public String listarQuartos() {
+		String s = "Listagem de Quartos\n" + cadQuartos.toString();
+		return s;
 	}
 	//Este metodo relaciona QuartoAbstrato e Funcionario
 	public void limparQuarto(String numeroQuarto, String cpfFuncionario, double gorjeta) throws QuartoNaoEncontradoException, FuncionarioNaoEncontradoException {
 		QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
+		quarto.pedido(taxaLimpeza);
 		Funcionario funcionario = cadFuncionarios.procurar(cpfFuncionario);
 		funcionario.trabalhar(gorjeta);
 		quarto.limpar();
