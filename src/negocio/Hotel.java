@@ -96,6 +96,11 @@ public class Hotel {
 		return cadFuncionarios.procurar(CPF);
 	} 
 	
+	public String listarFuncionarios(){
+		String listagem = "Listagem de Funcionarios: \n" + cadFuncionarios.toString();
+		return listagem;
+	}
+	
 	//Metodos relacionados a Cliente
 	
 	public void cadastrarCliente(String nome, String cpf) throws ClienteJaCadastradoException{
