@@ -9,7 +9,7 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 	private int indice;
 
 	public RepositorioClientesArray() {
-		this.maximo = 100;
+		this.maximo = 2;
 		this.ArrayClientes = new Cliente[maximo];
 		this.indice = 0;
 	}
