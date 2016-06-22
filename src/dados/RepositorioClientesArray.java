@@ -118,6 +118,14 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 		}
 		return gastos;
 	}
+	
+	public String toString() {
+		String s = "";
+		for (int i = 0; i < indice; i++) {
+			s += ArrayClientes[i].toString();
+		}
+		return s;
+	}
 
 		
 
