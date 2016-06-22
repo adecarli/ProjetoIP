@@ -1,7 +1,7 @@
 package exceptions;
 
 public class ProdutoNaoCadastradoException extends Exception{
-		public ProdutoNaoCadastradoException(){
-		super("Produto nao cadastrado.\n");
+		public ProdutoNaoCadastradoException(String nome){
+		super("Produto nao cadastrado: "+nome+"\n");
 		}
 	}
