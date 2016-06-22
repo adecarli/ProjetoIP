@@ -80,7 +80,9 @@ public class RepositorioProdutosArray implements RepositorioProdutos {
 	}
 	public String visualizarEstoque(String retorno){
 		for (int i= 0; i<this.indice;i++){
+			if(arrayProdutos[i]!=null){
 			retorno=retorno+arrayProdutos[i].toString();
+			}
 		}
 		return retorno;
 	}

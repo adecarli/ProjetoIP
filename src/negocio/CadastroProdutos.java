@@ -8,7 +8,7 @@ public class CadastroProdutos{
 		this.produtos=repositorio;
 	}
 //verifica se há algum produto igual antes de adicionar um novo produto
-public void cadastrarProduto (Produto produto) throws ProdutoJaCadastradoException, ProdutoNaoCadastradoException{
+public void cadastrarProduto (Produto produto) throws ProdutoJaCadastradoException{
 
 	//se o retorno não for nulo, quer dizer que há um produto com esse nome
 	if(this.produtos.procurar(produto.getNome())!=null){

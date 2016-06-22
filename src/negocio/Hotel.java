@@ -185,7 +185,7 @@ public class Hotel {
 		double gastos = cadQuartos.checkoutCliente(cpf);
 		cadClientes.adicionarGastos(cpf, gastos);
 		gastos = cadClientes.gastosCliente(cpf);
-		cadClientes.zerarGastos(cpf);
+		cadClientes.remover(cpf);
 		return gastos;
 	}
 	
@@ -196,7 +196,7 @@ public class Hotel {
 	
 	//Metodos relacionados a Produto
 	
-	public void cadastrarProduto (String nome, double preco, int quantidade) throws QuantidadeInvalidaException,PrecoInvalidoException, ProdutoJaCadastradoException, ProdutoNaoCadastradoException{
+	public void cadastrarProduto (String nome, double preco, int quantidade) throws QuantidadeInvalidaException,PrecoInvalidoException, ProdutoJaCadastradoException{
 		//verifica se o preco é maior que 0
 		if(preco<=0){
 			throw new PrecoInvalidoException();
