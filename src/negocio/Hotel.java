@@ -158,17 +158,29 @@ public class Hotel {
 	}
 	//Metodos relacionados a Cliente
 	
+	//cadastra o cliente 
 	public void cadastrarCliente(String nome, String cpf) throws ClienteJaCadastradoException{
 		Cliente cliente = new Cliente(nome, cpf);
 		cadClientes.cadastrar(cliente);
 	}
+	
+	//atualiza dados do cliente
 	public void atualizarCliente(String nome, String cpf) throws ClienteNaoEncontradoException {
 		Cliente cliente = new Cliente(nome, cpf);
 		cadClientes.atualizar(cliente);
 	}
+	
+	//retorna os gastos de um cliente
+	public double gastosCliente(String CPF) throws ClienteNaoEncontradoException {
+		return cadClientes.gastosCliente(CPF);
+	}
+	
+	//remove um cliente do repositorio
 	public void removerCliente(String cpf) throws ClienteNaoEncontradoException {
 		cadClientes.remover(cpf);
 	}
+	
+	//faz checkout, retornando o valor da conta e removendo ele da lista
 	public double checkoutCliente(String cpf) throws ClienteNaoEncontradoException { // vai  
 		double gastos = cadQuartos.checkoutCliente(cpf);
 		cadClientes.adicionarGastos(cpf, gastos);
