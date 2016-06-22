@@ -54,7 +54,26 @@ public class Programa {
 			System.out.println(hotel.listarQuartos());
 			//Listando os clientes cadastrados
 			System.out.println(hotel.listarClientes());
-			
+			//Atualizando preco de um quarto
+			try {
+				hotel.atualizarQuarto("2e", 100, "Luxo");
+			} catch (QuartoNaoEncontradoException e) {
+				System.out.println(e.getMessage());
+			} catch (TipoQuartoInvalidoException e) {
+				System.out.println(e.getMessage());
+			}
+			//Listar Quartos
+			System.out.println(hotel.listarQuartos());
+			//Atualizando tipo de um quarto
+			try {
+				hotel.atualizarQuarto("2e", 100, "Standard");
+			} catch (QuartoNaoEncontradoException e) {
+				System.out.println(e.getMessage());
+			} catch (TipoQuartoInvalidoException e) {
+				System.out.println(e.getMessage());
+			}
+			//Listando Quartos
+			System.out.println(hotel.listarQuartos());
 			//EXCECOES DE cadastrarQuarto -----
 			//Tentando cadastrar um quarto já existente
 			try {
