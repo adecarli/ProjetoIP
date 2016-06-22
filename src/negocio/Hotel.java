@@ -100,7 +100,6 @@ public class Hotel {
 		String listagem = "Listagem de Funcionarios: \n" + cadFuncionarios.toString();
 		return listagem;
 	}
-	
 	//Metodos relacionados a Cliente
 	
 	public void cadastrarCliente(String nome, String cpf) throws ClienteJaCadastradoException{
@@ -112,14 +111,19 @@ public class Hotel {
 		cadClientes.atualizar(cliente);
 	}
 	public void removerCliente(String cpf) throws ClienteNaoEncontradoException {
-		Cliente cliente= cadClientes.procurar(cpf);
 		cadClientes.remover(cpf);
 	}
-	public double checkoutCliente(String cpf) throws ClienteNaoEncontradoException, PrecoInvalidoException { // vai  
+	public double checkoutCliente(String cpf) throws ClienteNaoEncontradoException { // vai  
 		double gastos = cadQuartos.checkoutCliente(cpf);
 		cadClientes.adicionarGastos(cpf, gastos);
 		gastos = cadClientes.gastosCliente(cpf);
+		cadClientes.remover(cpf);
 		return gastos;
+	}
+	
+	public String listarClientes() {
+		String s = "Listagem de Clientes\n" + cadClientes.toString();
+		return s;
 	}
 	
 	//Metodos relacionados a Produto
@@ -159,7 +163,7 @@ public class Hotel {
 	public String visualizarEstoque(){
 		return cadProdutos.visualizarEstoque();
 	}
-	public void fazerPedido(String cpf, String produto, int qtde) throws EstoqueInsuficienteException,ProdutoNaoCadastradoException, ClienteNaoEncontradoException, PrecoInvalidoException{
+	public void fazerPedido(String cpf, String produto, int qtde) throws EstoqueInsuficienteException,ProdutoNaoCadastradoException, ClienteNaoEncontradoException{
 		Produto pedido = cadProdutos.procurarProduto(produto);
 		if (pedido==null){
 			throw new ProdutoNaoCadastradoException();
