@@ -9,7 +9,7 @@ public class main {
 
 	public static void main(String[] args) {
 		try{
-		Hotel hotel= new Hotel();
+		Hotel hotel;
 		Scanner in = new Scanner (new File("teste.txt"));
 		if (in.nextLine().equals("Array")){
 			System.out.println("Metodo de Armazenamento: Array");
@@ -20,17 +20,87 @@ public class main {
 			hotel=new Hotel(new RepositorioQuartosLista(),new RepositorioProdutosLista(), new RepositorioClientesLista(), new RepositorioFuncionariosLista());
 		}
 		//primeiro funcionario
+		
 		try{
 			hotel.cadastrarFuncionario("Edivaldo", "1814514", "faxineiro", 900.00);
 		}catch(FuncionarioJaCadastradoException e){
 			System.out.println(e.getMessage());
 		}
+		
 		//tentando recadastrar o primeiro funcionario
+		
 		try{
 			hotel.cadastrarFuncionario("Edivaldo", "1814514", "faxineiro", 900.00);
 		}catch(FuncionarioJaCadastradoException e){
 			System.out.println(e.getMessage());
 		}
+		
+		//segundo funcionario
+		
+		try{
+			hotel.cadastrarFuncionario("Maria", "12345678900", "cozinheira", 900.00);
+		}catch(FuncionarioJaCadastradoException e){
+			System.out.println(e.getMessage());
+		}
+		
+		//terceiro funcionario
+		
+		try{
+			hotel.cadastrarFuncionario("Vitor", "09876543211", "cozinheiro", 900.00);
+		}catch(FuncionarioJaCadastradoException e){
+			System.out.println(e.getMessage());
+		}
+		
+		//atualizando segundo funcionario
+		
+		try{
+			hotel.atualizarFuncionario("Maria", "12345678900", "faxineira", 910.00);
+		}catch(FuncionarioNaoEncontradoException e){
+			System.out.println(e.getMessage());
+		}
+		
+		//atualizando funcionario nao existente
+		
+		try{
+			hotel.atualizarFuncionario("Luan", "12345678908", "faxineiro", 910.00);
+		}catch(FuncionarioNaoEncontradoException e){
+			System.out.println(e.getMessage());
+		}
+		
+		//procurando funcionario existente
+		
+		try{
+			Funcionario funcionario = hotel.procurarFuncionario("12345678900");
+			System.out.println("Dados do funcionario: \n" + funcionario.toString());
+		}catch(FuncionarioNaoEncontradoException e){
+			System.out.println(e.getMessage());
+		}
+		
+		//procurando funcionario inexistente
+		
+		try{
+			Funcionario funcionario = hotel.procurarFuncionario("123456789");
+			System.out.println("Dados do funcionario: \n" + funcionario.toString());
+		}catch(FuncionarioNaoEncontradoException e){
+			System.out.println(e.getMessage());
+		}
+		
+		//removendo o terceiro funcionario
+		
+		try{
+			hotel.removerFuncionario("09876543211");
+		}catch(FuncionarioNaoEncontradoException e){
+			System.out.println(e.getMessage());
+		}
+		
+		//tentando remover funcionario inexistente
+		
+		try{
+			hotel.removerFuncionario("098765211");
+		}catch(FuncionarioNaoEncontradoException e){
+			System.out.println(e.getMessage());
+		}
+		
 		//cadastrando com preco invalido o primeiro produto
 		try{
 			hotel.cadastrarProduto("Agua",0.00, 2);
@@ -107,7 +177,7 @@ public class main {
 		}
 		//Cadastrando o primeiro cliente
 		try{
-			hotel.cadastrarCliente(new Cliente("Inês Brasil", "696694734"));
+			hotel.cadastrarCliente(new Cliente("Inï¿½s Brasil", "696694734"));
 		}catch(ClienteJaCadastradoException e){
 			System.out.println(e.getMessage());
 		}
@@ -124,7 +194,7 @@ public class main {
 		//visualizacao do Estoque
 			System.out.print(hotel.visualizarEstoque());
 
-		//faltou comida, peça só um
+		//faltou comida, peï¿½a sï¿½ um
 				try{
 					hotel.fazerPedido("696694734", "Sanduiche", 1);
 				}catch(ClienteNaoEncontradoException e){
