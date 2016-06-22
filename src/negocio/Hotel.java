@@ -216,13 +216,21 @@ public class Hotel {
 		else
 		cadProdutos.renovarEstoque(nome, quantidade);
 	}
+		//retorna uma string com as informaçoes do Produto
 	public String visualizarEstoque(){
 		return cadProdutos.visualizarEstoque();
 	}
-	public void fazerPedido(String cpf, String produto, int qtde) throws EstoqueInsuficienteException,ProdutoNaoCadastradoException, ClienteNaoEncontradoException{
+	//retorna uma string com o cardapio
+	public String informacoesProduto(String nome)throws ProdutoNaoCadastradoException{
+		return cadProdutos.informacoesProduto(nome);
+	}
+	public void fazerPedido(String cpf, String produto, int qtde) throws QuantidadeInvalidaException,EstoqueInsuficienteException,ProdutoNaoCadastradoException, ClienteNaoEncontradoException{
+		if (qtde<=0){
+			throw new QuantidadeInvalidaException();
+		}
 		Produto pedido = cadProdutos.procurarProduto(produto);
 		if (pedido==null){
-			throw new ProdutoNaoCadastradoException();
+			throw new ProdutoNaoCadastradoException(produto);
 		}
 		else{
 		//verifica se tem a quantidade certa para fazer uma retirada no estoque
