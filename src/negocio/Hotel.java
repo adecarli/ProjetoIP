@@ -4,9 +4,6 @@ import classesBasicas.*;
 import dados.*;
 import exceptions.*;
 
-//uma alteração de teste
-//testando
-
 public class Hotel {
 	private CadastroQuartos cadQuartos;
 	private CadastroProdutos cadProdutos;
@@ -26,16 +23,20 @@ public class Hotel {
 	
 	//Metodos relacionados a Quarto
 	
-	public void cadastrarQuarto(String numero, double valorDiaria, String tipo) throws QuartoJaCadastradoException, TipoQuartoInvalidoException {
-		QuartoAbstrato temp;
-		if (tipo.equals("Standard")) {
-			temp = new QuartoStandard(numero, valorDiaria);
-		} else if (tipo.equals("Luxo")) {
-			temp = new QuartoLuxo(numero, valorDiaria); 
+	public void cadastrarQuarto(String numero, double valorDiaria, String tipo) throws ValorDiariaInvalidoException, QuartoJaCadastradoException, TipoQuartoInvalidoException {
+		if (valorDiaria >= 0) {
+			QuartoAbstrato temp;
+			if (tipo.equals("Standard")) {
+				temp = new QuartoStandard(numero, valorDiaria);
+			} else if (tipo.equals("Luxo")) {
+				temp = new QuartoLuxo(numero, valorDiaria); 
+			} else {
+				throw new TipoQuartoInvalidoException();
+			}
+			cadQuartos.cadastrar(temp);			
 		} else {
-			throw new TipoQuartoInvalidoException();
+			throw new ValorDiariaInvalidoException();
 		}
-		cadQuartos.cadastrar(temp);
 	}
 	public void removerQuarto(String numero) throws QuartoNaoEncontradoException, QuartoOcupadoException {
 		QuartoAbstrato target = cadQuartos.procurar(numero);
@@ -43,6 +44,38 @@ public class Hotel {
 			cadQuartos.remover(numero);
 		} else {
 			throw new QuartoOcupadoException(numero, target.getHospede());
+		}
+	}
+	public void adicionarCama(String numero) throws QuartoNaoEncontradoException, QuartoOcupadoException, AdicionarCamaException, CamaExtraPresenteException {
+		QuartoAbstrato quarto = cadQuartos.procurar(numero);
+		if (quarto instanceof QuartoLuxo) {
+			if (quarto.getHospede() == null) {
+				if (!((QuartoLuxo) quarto).getCamaExtra()) {
+					((QuartoLuxo) quarto).adicionarCama();									
+				} else {
+					throw new CamaExtraPresenteException();
+				}
+			} else {
+				throw new QuartoOcupadoException(numero, quarto.getHospede());
+			}
+		} else {
+			throw new AdicionarCamaException();
+		}
+	}
+	public void removerCama(String numero) throws QuartoNaoEncontradoException, CamaExtraAusenteException, QuartoOcupadoException, AdicionarCamaException {
+		QuartoAbstrato quarto = cadQuartos.procurar(numero);
+		if (quarto instanceof QuartoLuxo) {
+			if (quarto.getHospede() == null) {
+				if (((QuartoLuxo) quarto).getCamaExtra()) {
+					((QuartoLuxo) quarto).removerCama();									
+				} else {
+					throw new CamaExtraAusenteException();
+				}
+			} else {
+				throw new QuartoOcupadoException(numero, quarto.getHospede());
+			}
+		} else {
+			throw new AdicionarCamaException();
 		}
 	}
 	public void checkin(String numeroQuarto, String cpfCliente, int numDias) throws QuartoNaoEncontradoException, ClienteNaoEncontradoException, QuartoOcupadoException {
@@ -55,25 +88,39 @@ public class Hotel {
 		}
 	}
 	//Este metodo relaciona QuartoAbstrato e Cliente
-	//Possibilidades: Ao inves de o metodo retornar um double, ele retorna void e acrescenta
-	//o valor recebido por "quarto.checkout()" ao atributo "gastos" de Cliente
 	public void checkoutQuarto(String numeroQuarto) throws QuartoNaoEncontradoException, QuartoVazioException {
 		QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
-		Cliente hospede = quarto.getHospede();
-		double total = quarto.checkout();
-		hospede.totalGastos(total);
+		if (quarto.getHospede() != null) {
+			Cliente hospede = quarto.getHospede();
+			double total = quarto.checkout();
+			hospede.totalGastos(total);			
+		} else {
+			throw new QuartoVazioException(numeroQuarto);
+		}
 	}
 	public String listarQuartos() {
 		String s = "Listagem de Quartos\n" + cadQuartos.toString();
 		return s;
 	}
 	//Este metodo relaciona QuartoAbstrato e Funcionario
-	public void limparQuarto(String numeroQuarto, String cpfFuncionario, double gorjeta) throws QuartoNaoEncontradoException, FuncionarioNaoEncontradoException {
-		QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
-		quarto.pedido(taxaLimpeza);
-		Funcionario funcionario = cadFuncionarios.procurar(cpfFuncionario);
-		funcionario.trabalhar(gorjeta);
-		quarto.limpar();
+	public void limparQuarto(String numeroQuarto, String cpfFuncionario, double gorjeta) throws QuartoNaoEncontradoException, FuncionarioNaoEncontradoException, QuartoVazioException, QuartoLimpoException, GorjetaInvalidaException {
+		if (gorjeta >= 0) {
+			QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
+			if (quarto.getHospede() != null) { 
+				if (!quarto.getLimpo()) {
+					quarto.pedido(taxaLimpeza);
+					Funcionario funcionario = cadFuncionarios.procurar(cpfFuncionario);
+					funcionario.trabalhar(gorjeta);
+					quarto.limpar();				
+				} else {
+					throw new QuartoLimpoException(numeroQuarto);
+				}
+			} else {
+				throw new QuartoVazioException(numeroQuarto);
+			}
+		} else {
+			throw new GorjetaInvalidaException();
+		}
 	}
 	
 	//Metodos relacionados a Funcionario
