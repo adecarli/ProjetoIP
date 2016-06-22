@@ -99,7 +99,7 @@ public class Hotel {
 	}
 	
 	public double checkoutCliente(String cpf) throws ClienteNaoEncontradoException, PrecoInvalidoException { // vai  
-		double gastos = cadQuartos.gastosCliente(cpf);
+		double gastos = cadQuartos.checkoutCliente(cpf);
 		cadClientes.adicionarGastos(cpf, gastos);
 		gastos = cadClientes.gastosCliente(cpf);
 		return gastos;
