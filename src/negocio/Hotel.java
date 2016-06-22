@@ -4,7 +4,7 @@ import classesBasicas.*;
 import dados.*;
 import exceptions.*;
 
-//uma alteração de teste
+//uma alteraÃ§Ã£o de teste
 //testando
 
 public class Hotel {
@@ -96,6 +96,10 @@ public class Hotel {
 		return cadFuncionarios.procurar(CPF);
 	} 
 	
+	public String listarFuncionarios(){
+		String listagem = "Listagem de Funcionarios: \n" + cadFuncionarios.toString();
+		return listagem;
+	}
 	//Metodos relacionados a Cliente
 	
 	public void cadastrarCliente(String nome, String cpf) throws ClienteJaCadastradoException{
@@ -125,11 +129,11 @@ public class Hotel {
 	//Metodos relacionados a Produto
 	
 	public void cadastrarProduto (String nome, double preco, int quantidade) throws QuantidadeInvalidaException,PrecoInvalidoException, ProdutoJaCadastradoException, ProdutoNaoCadastradoException{
-		//verifica se o preco é maior que 0
+		//verifica se o preco Ã© maior que 0
 		if(preco<=0){
 			throw new PrecoInvalidoException();
 		}
-		//verifica se a quantidade é maior que 0
+		//verifica se a quantidade Ã© maior que 0
 
 		if(quantidade<=0){
 			throw new QuantidadeInvalidaException();
@@ -149,7 +153,7 @@ public class Hotel {
 		cadProdutos.atualizarPreco(nome, preco);
 	}
 	public void renovarEstoque(String nome, int quantidade) throws ProdutoNaoCadastradoException, QuantidadeInvalidaException{
-		//se o estoque estiver zerado, lança o erro
+		//se o estoque estiver zerado, lanÃ§a o erro
 		if (quantidade<=0){
 			throw new QuantidadeInvalidaException();
 		}
