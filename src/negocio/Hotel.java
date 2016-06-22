@@ -109,7 +109,7 @@ public class Hotel {
 	}
 	public void atualizarCliente(String nome, String cpf) throws ClienteNaoEncontradoException {
 		Cliente cliente = new Cliente(nome, cpf);
-		cadClientes.atualizarCliente(cliente);
+		cadClientes.atualizar(cliente);
 	}
 	public void removerCliente(String cpf) throws ClienteNaoEncontradoException {
 		Cliente cliente= cadClientes.procurar(cpf);
