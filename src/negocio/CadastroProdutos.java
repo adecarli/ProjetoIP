@@ -9,14 +9,14 @@ public class CadastroProdutos{
 	}
 //verifica se há algum produto igual antes de adicionar um novo produto
 public void cadastrarProduto (Produto produto) throws ProdutoJaCadastradoException, ProdutoNaoCadastradoException{
-	Produto compara=produtos.procurar(produto.getNome());
+
 	//se o retorno não for nulo, quer dizer que há um produto com esse nome
-	if(compara!=null){
+	if(this.produtos.procurar(produto.getNome())!=null){
 		throw new ProdutoJaCadastradoException();
 	}
 	//já se o retorno for nulo, o produto pode ser cadastrado com sucesso
 	else{
-		produtos.cadastrar(produto);
+		this.produtos.cadastrar(produto);
 	}
 }
 public Produto procurarProduto(String nome){
@@ -63,6 +63,6 @@ public String informacoesProduto(Produto produto){
 }
 public String visualizarEstoque(){
 	//apenas chama o metodo visualizarEstoque
-	return produtos.visualizarEstoque();
+	return produtos.visualizarEstoque("");
 }
 }
