@@ -15,7 +15,7 @@ public class RepositorioClientesLista implements RepositorioClientes {
 	}
 
 	public void inserirCliente(Cliente cliente) {
-		if (this.cliente == null) { // caso n„o haja um cliente naquela posicao,
+		if (this.cliente == null) { // caso n√£o haja um cliente naquela posicao,
 									// o novo cliente eh inserido la
 			this.cliente = cliente;
 			this.next = new RepositorioClientesLista();
@@ -32,7 +32,7 @@ public class RepositorioClientesLista implements RepositorioClientes {
 				this.next = this.next.next; //e assim sucessivamente
 			}
 			else{
-				this.next.removerCliente(CPF); //se n„o encontro, chamo o metodo recursivamente
+				this.next.removerCliente(CPF); //se n√£o encontro, chamo o metodo recursivamente
 			}
 		}
 			
@@ -86,7 +86,7 @@ public class RepositorioClientesLista implements RepositorioClientes {
 				this.cliente.totalGastos(gasto);
 			}
 		}
-		this.next.zerarGastosCliente(CPF);
+		this.next.adicionarGastosCliente(CPF, gasto);
 	}
 		
 	public double gastosCliente(String CPF){
