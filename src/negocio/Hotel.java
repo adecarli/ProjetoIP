@@ -107,8 +107,8 @@ public class Hotel {
 		cadClientes.atualizarCliente(cliente);
 	}
 	public void removerCliente(String cpf) throws ClienteNaoEncontradoException {
-		Cliente cliente= cadClientes.procurarCliente(cpf);
-		cadClientes.removerCliente(cliente);
+		Cliente cliente= cadClientes.procurar(cpf);
+		cadClientes.remover(cpf);
 	}
 	public double checkoutCliente(String cpf) throws ClienteNaoEncontradoException, PrecoInvalidoException { // vai  
 		double gastos = cadQuartos.checkoutCliente(cpf);
