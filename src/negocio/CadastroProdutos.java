@@ -12,7 +12,7 @@ public void cadastrarProduto (Produto produto) throws ProdutoJaCadastradoExcepti
 
 	//se o retorno não for nulo, quer dizer que há um produto com esse nome
 	if(this.produtos.procurar(produto.getNome())!=null){
-		throw new ProdutoJaCadastradoException(this.produtos.procurar(produto.getNome()));
+		throw new ProdutoJaCadastradoException();
 	}
 	//já se o retorno for nulo, o produto pode ser cadastrado com sucesso
 	else{
@@ -22,10 +22,9 @@ public void cadastrarProduto (Produto produto) throws ProdutoJaCadastradoExcepti
 		else{
 			RepositorioProdutosArray auxiliar= (RepositorioProdutosArray) produtos;
 			produtos= new RepositorioProdutosArray(auxiliar.getTamanho()+10);
-			for (int i=0; i<auxiliar.getTamanho(); i++){
+			for (int i=0; i<produtos.getTamanho(); i++){
 				produtos.cadastrar(auxiliar.getProduto(i));
 			}
-			produtos.cadastrar(produto);
 		}
 	}
 }
@@ -40,11 +39,11 @@ public void removerProduto(String nome) throws ProdutoNaoCadastradoException{
 	boolean removido=produtos.remover(produto);
 	//uma outra camada de teste pra evitar
 	if(!removido){
-		throw new ProdutoNaoCadastradoException(nome);
+		throw new ProdutoNaoCadastradoException();
 	}
 	}
 	else{
-		throw new ProdutoNaoCadastradoException(nome);
+		throw new ProdutoNaoCadastradoException();
 	}
 }
 public void atualizarPreco(String nome, double preco) throws ProdutoNaoCadastradoException{
@@ -54,7 +53,7 @@ public void atualizarPreco(String nome, double preco) throws ProdutoNaoCadastrad
 		produtos.atualizarPreco(produto, preco);
 	}
 	else{
-		throw new ProdutoNaoCadastradoException(nome);
+		throw new ProdutoNaoCadastradoException();
 	}
 }
 public void renovarEstoque(String nome, int quantidade) throws ProdutoNaoCadastradoException{
@@ -64,16 +63,15 @@ public void renovarEstoque(String nome, int quantidade) throws ProdutoNaoCadastr
 		produtos.renovarEstoque(produto, quantidade);
 	}
 	else{
-		throw new ProdutoNaoCadastradoException(nome);
+		throw new ProdutoNaoCadastradoException();
 	}
 }
-public String informacoesProduto(String nome) throws ProdutoNaoCadastradoException{
+public String informacoesProduto(Produto produto){
 	//apenas chama o metodo toString
-	Produto produto= produtos.procurar(nome);
 	return produto.toString();
 }
 public String visualizarEstoque(){
 	//apenas chama o metodo visualizarEstoque
-	return produtos.visualizarEstoque("Cardapio:\n");
+	return produtos.visualizarEstoque("");
 }
 }

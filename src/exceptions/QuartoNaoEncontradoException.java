@@ -2,6 +2,6 @@ package exceptions;
 
 public class QuartoNaoEncontradoException extends Exception {
 	public QuartoNaoEncontradoException() {
-		super("Quarto nao encontrado.");
+		super("Quarto nao encontrado.\n");
 	}
 }

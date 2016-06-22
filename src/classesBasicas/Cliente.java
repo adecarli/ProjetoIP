@@ -38,11 +38,7 @@ public class Cliente {
 	}
 	
 
-	public void zerarGastosCliente(){
-		this.gastos = 0;
-	}
-	
-	public void totalGastos(Double gastos) {
+	public void totalGastos(Double gastos) { //coloca todos os gastos do cliente num saldo total
 		this.gastos = this.gastos + gastos;
 	}
 	

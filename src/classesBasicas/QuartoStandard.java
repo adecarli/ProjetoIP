@@ -9,9 +9,4 @@ public class QuartoStandard extends QuartoAbstrato {
 	public void pedido(double valor) {
 		this.setTotal(this.getTotal() + valor);
 	}
-	public String toString() {
-		String s = "";
-		s += super.toString() + " | Tipo: Standard\n";
-		return s;
-	}
 }

@@ -9,7 +9,14 @@ public class mainTesteCliente {
 
 	public static void main(String[] args) {
 		
-		System.out.println("**BEM VINDO AO HOTEL DA'GENTE");
+		System.out.println("	**BEM VINDO AO HOTEL DA'GENTE**");
+		System.out.println("Gerente de infraestrutura e presidente: André De'Carli");
+		System.out.println("Gerente de equipe: Laricia Mota");
+		System.out.println("Gerente de produtos e servicos: Rafael Prado");
+		System.out.println("Gerente de relacionamento com o cliente: Maria Luiza Menezes");
+		System.out.println();
+		System.out.println("______________________________________________________________________");
+		System.out.println();
 		
 		try{
 			
@@ -31,7 +38,7 @@ public class mainTesteCliente {
 		//Cadastrando clientes corretamente
 		try{
 			hotel.cadastrarCliente("Inês Brasil", "001");
-			System.out.println("Bem vindo(a) ao hotel");
+			System.out.println("Bem vindo(a) ao hotel" );
 		}catch(ClienteJaCadastradoException e){
 			System.out.println(e.getMessage());
 		}
@@ -79,6 +86,8 @@ public class mainTesteCliente {
 		}catch(ClienteJaCadastradoException e){
 			System.out.println(e.getMessage());
 		}
+		
+
 		//Listar Clientes
 				System.out.println(hotel.listarClientes());
 		//Remover Cliente
@@ -140,8 +149,17 @@ public class mainTesteCliente {
 			System.out.println(e.getMessage());
 		}catch(EstoqueInsuficienteException e){
 			System.out.println(e.getMessage());
-		} 
-		
+		}catch(QuantidadeInvalidaException e){
+			System.out.println(e.getMessage());
+		}
+		System.out.println("***");
+		//Retornando um gasto de algum cliente NAO TA FUNCIONANDO
+		try{
+			double gasto = hotel.gastosCliente("010");
+			System.out.println("gastos da cliente:" + gasto );
+		}catch(ClienteNaoEncontradoException e){
+			System.out.println(e.getMessage());
+		}
 		//Checkout Cliente valido
 		try{
 			hotel.checkoutCliente("010");

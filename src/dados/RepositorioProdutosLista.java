@@ -53,7 +53,7 @@ public class RepositorioProdutosLista implements RepositorioProdutos {
 			}
 			achou=true;
 		} else {
-				return this.proximo.remover(produto);
+				this.proximo.remover(produto);
 		}
 		return achou;
 	}

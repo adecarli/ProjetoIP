@@ -56,7 +56,7 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 			}
 		} 
 	}
-
+	// procura um cliente especifico, dado o seu cpf (identificacao unica)
 	public Cliente procurarCliente(String CPF){ 
 		Cliente achou = null;
 		for(int i =0; i<indice ; i++){
@@ -67,7 +67,7 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 		return achou;
 		
 	}
-
+	//atualiza dados de um cliente relacionando com o CPF.
 	public void atualizarCliente(Cliente clienteAtualizado){
 		for(int i = 0; i<indice; i++){
 			if(ArrayClientes[i].getCPF().equals(clienteAtualizado.getCPF())){
@@ -75,7 +75,7 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 			}
 		}	
 	}
-	
+	//retorna um verdadeiro ou falso sobre a existencia de um dado cliente, sem retorna-lo
 	public boolean existeCliente(String CPF){
 		boolean existe = false;
 		for(int i = 0; i<indice;i++){
@@ -86,16 +86,7 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 		return existe;
 		
 	}	
-	public void zerarGastosCliente(String CPF){
-		boolean achou = false;
-			for(int i = 0; i<indice && (!achou); i++){
-				if(ArrayClientes[i].getCPF().equals(CPF)){
-					achou = true;
-					ArrayClientes[i].zerarGastosCliente();
-				}
-		}
-			
-	}
+	//metodo para aumentar o gasto de um cliente, de acordo com o pedido ou servico
 	public void adicionarGastosCliente(String CPF, double gasto){
 		boolean achou = false;
 		for(int i = 0; i<indice && (!achou); i++){
@@ -107,6 +98,7 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 			
 	}
 	
+	//retorna o gasto desse cliente
 	public double gastosCliente(String CPF){
 		boolean achou = false;
 		double gastos = 0;
@@ -118,6 +110,7 @@ public class RepositorioClientesArray implements RepositorioClientes { // cadast
 		}
 		return gastos;
 	}
+	
 	
 	public String toString() {
 		String s = "";

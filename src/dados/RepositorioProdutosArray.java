@@ -38,7 +38,7 @@ public class RepositorioProdutosArray implements RepositorioProdutos {
 		//retorna o produto procurado ou null se não achar nenhum
 		Produto retorno=null;
 		boolean achou=false;
-		for (int i=0; i<=indice&&i<tamanho&&achou==false; i++){
+		for (int i=0; i<=indice&&achou==false; i++){
 			if(arrayProdutos[i]!=null&&arrayProdutos[i].getNome().equals(nome)){
 				retorno= arrayProdutos[i];
 				achou=true;
@@ -51,17 +51,8 @@ public class RepositorioProdutosArray implements RepositorioProdutos {
 		//remove e informa se o mesmo foi removido ou não
 		boolean removido=false;
 		if (produto!=null){
-		if(produto.getIndice()==1){
-			arrayProdutos[produto.getIndice()]=null;
-		}
-		else if(produto.getIndice()==tamanho){
-			arrayProdutos[produto.getIndice()]=null;
-		}
-		else{
 		arrayProdutos[produto.getIndice()]=arrayProdutos[indice-1];
 		arrayProdutos[produto.getIndice()].setIndice(produto.getIndice());
-		arrayProdutos[indice-1]=null;
-		}
 		indice--;
 		removido=true;
 		}
@@ -80,7 +71,7 @@ public class RepositorioProdutosArray implements RepositorioProdutos {
 	}
 	public String visualizarEstoque(String retorno){
 		for (int i= 0; i<this.indice;i++){
-			retorno=retorno+arrayProdutos[i].toString();
+			retorno=retorno+arrayProdutos.toString();
 		}
 		return retorno;
 	}

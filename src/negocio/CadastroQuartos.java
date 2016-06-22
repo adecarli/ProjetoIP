@@ -13,29 +13,17 @@ public class CadastroQuartos {
 		if (!rep.existe(quarto.getNumero())) {
 			rep.inserir(quarto);
 		} else {
-			throw new QuartoJaCadastradoException(quarto.getNumero());
+			throw new QuartoJaCadastradoException();
 		}
 	}
 	public void remover(String numero) throws QuartoNaoEncontradoException {
-		if (rep.existe(numero)) {
-			rep.remover(numero);			
-		} else {
-			throw new QuartoNaoEncontradoException();
-		}
+		rep.remover(numero);
 	}
 	public QuartoAbstrato procurar(String numero) throws QuartoNaoEncontradoException {
-		if (rep.existe(numero)) {
-			return rep.procurar(numero);
-		} else {
-			throw new QuartoNaoEncontradoException();
-		}
+		return rep.procurar(numero);
 	}
 	public void atualizar(QuartoAbstrato quarto) throws QuartoNaoEncontradoException {
-		if (rep.existe(quarto.getNumero())) {
-			rep.atualizar(quarto);			
-		} else {
-			throw new QuartoNaoEncontradoException();
-		}
+		rep.atualizar(quarto);
 	}
 	public double gastosCliente(String cpf) {
 		return rep.getGastosCliente(cpf);

@@ -52,9 +52,9 @@ public class RepositorioClientesLista implements RepositorioClientes {
 	}
 
 	public void atualizarCliente(Cliente clienteAtualizado) {
-		if (this.cliente.getCPF().equals(clienteAtualizado.getCPF())) {
+		if (this.cliente.getCPF().equals(clienteAtualizado.getCPF())) {	//quando encontra um cliente, atualiza a informacao dele
 			this.cliente = clienteAtualizado;		
-		} else {
+		} else { 	//se nao, lanca exception
 			this.next.atualizarCliente(clienteAtualizado);
 		}
 	}
@@ -62,27 +62,19 @@ public class RepositorioClientesLista implements RepositorioClientes {
 	public boolean existeCliente(String CPF){
 		boolean existe = false;
 		if(this.next != null){
-			if(this.cliente.getCPF().equals(CPF)){
+			if(this.cliente.getCPF().equals(CPF)){ //quando encontra um cliente, retorna um boolean com verdadeiro, caso contrario, retorna falso
 				existe = true;
 			}else {
-				existe = this.next.existeCliente(CPF);
+				existe = this.next.existeCliente(CPF); //metodo recursivo para procurar na lista
 			}
 		}
 		return existe;
 	}
 	
-	public void zerarGastosCliente(String CPF) {
-		if(this.cliente!=null){
-			if(this.cliente.getCPF().equals(CPF)){	
-				this.cliente.zerarGastosCliente();
-			}
-		}
-		this.next.zerarGastosCliente(CPF);
-	}
-	
+
 	public void adicionarGastosCliente(String CPF, double gasto){
 		if(this.cliente!=null){
-			if(this.cliente.getCPF().equals(CPF)){	
+			if(this.cliente.getCPF().equals(CPF)){	//adiciona num double de gasto na conta do cliente
 				this.cliente.totalGastos(gasto);
 			} else {
 				this.next.adicionarGastosCliente(CPF, gasto);
@@ -91,10 +83,10 @@ public class RepositorioClientesLista implements RepositorioClientes {
 		
 	}
 		
-	public double gastosCliente(String CPF){
+	public double gastosCliente(String CPF){ 
 		double gastos = 0;
 		if(this.cliente != null){
-			if(this.cliente.getCPF().equals(CPF)){
+			if(this.cliente.getCPF().equals(CPF)){ //quando encontra o cliente com o cpf dado, retorna o valor da conta dele
 				gastos = this.cliente.getGastos();
 			} else {
 				this.next.gastosCliente(CPF);

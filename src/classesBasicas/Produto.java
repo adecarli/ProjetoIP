@@ -45,6 +45,13 @@ public class Produto {
 	}
 	
 	public String toString(){
-		return "Nome do produto: "+this.nome+" Preco: R$"+this.preco+" Quantidade: "+this.estoque+"\n";
+		return "Produto: "+this.nome+" Preco: R$"+this.preco+" Quantidade: "+this.estoque+"\n";
 	}
+	//-----Testes
+			public static void main(String[] args) {
+				Produto p = new Produto("Coca-Cola", 5.5, 100);
+				System.out.println("Nome: "+ p.getNome());
+				System.out.println("Preco: " + p.getPreco());
+				System.out.println("Estoque: " + p.getEstoque());
+			}
 }
