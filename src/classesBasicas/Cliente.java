@@ -45,6 +45,7 @@ public class Cliente {
 	public void totalGastos(Double gastos) {
 		this.gastos = this.gastos + gastos;
 	}
+	
 	public String toString(){
 		String funcionario = "";
 		funcionario += "Nome: " + getNome() + ", CPF: " + getCPF() + ", Gastos: " + getGastos() + ".\n";
