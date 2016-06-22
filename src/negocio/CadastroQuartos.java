@@ -31,4 +31,7 @@ public class CadastroQuartos {
 	public double checkoutCliente(String cpf) {
 		return rep.checkoutCliente(cpf);
 	}
+	public String toString() {
+		return rep.toString();
+	}
 }
