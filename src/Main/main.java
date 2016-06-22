@@ -181,7 +181,7 @@ public class main {
 		}
 		//Cadastrando o primeiro cliente
 		try{
-			hotel.cadastrarCliente(new Cliente("In�s Brasil", "696694734"));
+			hotel.cadastrarCliente("Ines Brasil", "696694734");
 		}catch(ClienteJaCadastradoException e){
 			System.out.println(e.getMessage());
 		}
