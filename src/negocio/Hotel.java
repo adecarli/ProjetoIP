@@ -109,6 +109,12 @@ public class Hotel {
 		Cliente cliente= cadClientes.procurarCliente(cpf);
 		cadClientes.removerCliente(cliente);
 	}
+	public double checkoutCliente(String cpf) throws ClienteNaoEncontradoException, PrecoInvalidoException { // vai  
+		double gastos = cadQuartos.checkoutCliente(cpf);
+		cadClientes.adicionarGastos(cpf, gastos);
+		gastos = cadClientes.gastosCliente(cpf);
+		return gastos;
+	}
 	
 	//Metodos relacionados a Produto
 	
