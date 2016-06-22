@@ -42,5 +42,9 @@ public class CadastroFuncionarios {
 		}
 		return retorno;
 	}
+	
+	public String toString(){
+		return repositorio.toString();
+	}
 
 }
