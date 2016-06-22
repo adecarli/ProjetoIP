@@ -16,7 +16,16 @@ public void cadastrarProduto (Produto produto) throws ProdutoJaCadastradoExcepti
 	}
 	//já se o retorno for nulo, o produto pode ser cadastrado com sucesso
 	else{
+		if(produtos.getIndice()<produtos.getTamanho()){
 		this.produtos.cadastrar(produto);
+		}
+		else{
+			RepositorioProdutosArray auxiliar= (RepositorioProdutosArray) produtos;
+			produtos= new RepositorioProdutosArray(auxiliar.getTamanho()+10);
+			for (int i=0; i<produtos.getTamanho(); i++){
+				produtos.cadastrar(auxiliar.getProduto(i));
+			}
+		}
 	}
 }
 public Produto procurarProduto(String nome){
