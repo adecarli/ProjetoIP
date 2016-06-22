@@ -2,6 +2,6 @@ package exceptions;
 
 public class QuartoJaCadastradoException extends Exception {
 	public QuartoJaCadastradoException() {
-		super("Quarto ja cadastrado.\n");
+		super("Quarto ja cadastrado.");
 	}
 }
