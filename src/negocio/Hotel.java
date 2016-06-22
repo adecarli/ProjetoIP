@@ -5,7 +5,7 @@ import dados.*;
 import exceptions.*;
 import negocio.*;
 
-//uma alteração de teste
+//uma alteraÃ§Ã£o de teste
 //testando
 
 public class Hotel {
@@ -13,6 +13,7 @@ public class Hotel {
 	private CadastroProdutos cadProdutos;
 	private CadastroClientes cadClientes;
 	private CadastroFuncionarios cadFuncionarios;
+	private static final double taxaLimpeza = 2;
 	
 	public Hotel(RepositorioQuartos repQ, RepositorioProdutos repP, RepositorioClientes repC, RepositorioFuncionarios repF) {
 		cadQuartos = new CadastroQuartos(repQ);
@@ -45,19 +46,29 @@ public class Hotel {
 	public void checkin(String numeroQuarto, String cpfCliente, int numDias) throws QuartoNaoEncontradoException, ClienteNaoEncontradoException, QuartoOcupadoException {
 		QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
 		Cliente cliente = cadClientes.procurar(cpfCliente);
-		quarto.checkin(cliente, numDias);
+		if (quarto.getHospede() == null) {			
+			quarto.checkin(cliente, numDias);
+		} else {
+			throw new QuartoOcupadoException(numeroQuarto, quarto.getHospede());
+		}
+	}
+	public String listarQuartos() {
+		String s = "Listagem de Quartos\n" + cadQuartos.toString();
+		return s;
 	}
 	//Este metodo relaciona QuartoAbstrato e Cliente
 	//Possibilidades: Ao inves de o metodo retornar um double, ele retorna void e acrescenta
 	//o valor recebido por "quarto.checkout()" ao atributo "gastos" de Cliente
-	public double checkout(String numeroQuarto) throws QuartoNaoEncontradoException, QuartoVazioException {
+	public void checkoutQuarto(String numeroQuarto) throws QuartoNaoEncontradoException, QuartoVazioException {
 		QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
+		Cliente hospede = quarto.getHospede();
 		double total = quarto.checkout();
-		return total;
+		hospede.totalGastos(total);
 	}
 	//Este metodo relaciona QuartoAbstrato e Funcionario
 	public void limparQuarto(String numeroQuarto, String cpfFuncionario, double gorjeta) throws QuartoNaoEncontradoException, FuncionarioNaoEncontradoException {
 		QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
+		quarto.pedido(taxaLimpeza);
 		Funcionario funcionario = cadFuncionarios.procurar(cpfFuncionario);
 		funcionario.trabalhar(gorjeta);
 		quarto.limpar();
@@ -109,11 +120,11 @@ public class Hotel {
 	//Metodos relacionados a Produto
 	
 	public void cadastrarProduto (String nome, double preco, int quantidade) throws QuantidadeInvalidaException,PrecoInvalidoException, ProdutoJaCadastradoException, ProdutoNaoCadastradoException{
-		//verifica se o preco é maior que 0
+		//verifica se o preco Ã© maior que 0
 		if(preco<=0){
 			throw new PrecoInvalidoException();
 		}
-		//verifica se a quantidade é maior que 0
+		//verifica se a quantidade Ã© maior que 0
 		if(quantidade<=0){
 			throw new QuantidadeInvalidaException();
 		}
@@ -133,7 +144,7 @@ public class Hotel {
 		cadProdutos.atualizarPreco(nome, preco);
 	}
 	public void renovarEstoque(String nome, int quantidade) throws ProdutoNaoCadastradoException, QuantidadeInvalidaException{
-		//se o estoque estiver zerado, lança o erro
+		//se o estoque estiver zerado, lanÃ§a o erro
 		if (quantidade<=0){
 			throw new QuantidadeInvalidaException();
 		}
