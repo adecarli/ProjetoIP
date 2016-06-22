@@ -46,6 +46,15 @@ public class Hotel {
 			throw new QuartoOcupadoException(numero, target.getHospede());
 		}
 	}
+	public void atualizarQuarto(String numero, double valorDiaria, String tipo) throws QuartoNaoEncontradoException, TipoQuartoInvalidoException {
+		if (tipo.equals("Standard")) {
+			cadQuartos.atualizar(new QuartoStandard(numero, valorDiaria));
+		} else if (tipo.equals("Luxo")) {
+			cadQuartos.atualizar(new QuartoLuxo(numero, valorDiaria));
+		} else {
+			throw new TipoQuartoInvalidoException();
+		}
+	}
 	public void adicionarCama(String numero) throws QuartoNaoEncontradoException, QuartoOcupadoException, AdicionarCamaException, CamaExtraPresenteException {
 		QuartoAbstrato quarto = cadQuartos.procurar(numero);
 		if (quarto instanceof QuartoLuxo) {
