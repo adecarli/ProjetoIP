@@ -4,7 +4,7 @@ import classesBasicas.*;
 import dados.*;
 import exceptions.*;
 
-//uma alteraÃ§Ã£o de teste
+//uma alteração de teste
 //testando
 
 public class Hotel {
@@ -96,11 +96,6 @@ public class Hotel {
 		return cadFuncionarios.procurar(CPF);
 	} 
 	
-	public String listarFuncionarios(){
-		String listagem = "Listagem de Funcionarios: \n" + cadFuncionarios.toString();
-		return listagem;
-	}
-	
 	//Metodos relacionados a Cliente
 	
 	public void cadastrarCliente(String nome, String cpf) throws ClienteJaCadastradoException{
@@ -112,24 +107,29 @@ public class Hotel {
 		cadClientes.atualizar(cliente);
 	}
 	public void removerCliente(String cpf) throws ClienteNaoEncontradoException {
-		Cliente cliente= cadClientes.procurar(cpf);
 		cadClientes.remover(cpf);
 	}
-	public double checkoutCliente(String cpf) throws ClienteNaoEncontradoException, PrecoInvalidoException { // vai  
+	public double checkoutCliente(String cpf) throws ClienteNaoEncontradoException { // vai  
 		double gastos = cadQuartos.checkoutCliente(cpf);
 		cadClientes.adicionarGastos(cpf, gastos);
 		gastos = cadClientes.gastosCliente(cpf);
+		cadClientes.remover(cpf);
 		return gastos;
+	}
+	
+	public String listarClientes() {
+		String s = "Listagem de Clientes\n" + cadClientes.toString();
+		return s;
 	}
 	
 	//Metodos relacionados a Produto
 	
 	public void cadastrarProduto (String nome, double preco, int quantidade) throws QuantidadeInvalidaException,PrecoInvalidoException, ProdutoJaCadastradoException, ProdutoNaoCadastradoException{
-		//verifica se o preco Ã© maior que 0
+		//verifica se o preco é maior que 0
 		if(preco<=0){
 			throw new PrecoInvalidoException();
 		}
-		//verifica se a quantidade Ã© maior que 0
+		//verifica se a quantidade é maior que 0
 
 		if(quantidade<=0){
 			throw new QuantidadeInvalidaException();
@@ -149,7 +149,7 @@ public class Hotel {
 		cadProdutos.atualizarPreco(nome, preco);
 	}
 	public void renovarEstoque(String nome, int quantidade) throws ProdutoNaoCadastradoException, QuantidadeInvalidaException{
-		//se o estoque estiver zerado, lanÃ§a o erro
+		//se o estoque estiver zerado, lança o erro
 		if (quantidade<=0){
 			throw new QuantidadeInvalidaException();
 		}
@@ -159,7 +159,7 @@ public class Hotel {
 	public String visualizarEstoque(){
 		return cadProdutos.visualizarEstoque();
 	}
-	public void fazerPedido(String cpf, String produto, int qtde) throws EstoqueInsuficienteException,ProdutoNaoCadastradoException, ClienteNaoEncontradoException, PrecoInvalidoException{
+	public void fazerPedido(String cpf, String produto, int qtde) throws EstoqueInsuficienteException,ProdutoNaoCadastradoException, ClienteNaoEncontradoException{
 		Produto pedido = cadProdutos.procurarProduto(produto);
 		if (pedido==null){
 			throw new ProdutoNaoCadastradoException();
