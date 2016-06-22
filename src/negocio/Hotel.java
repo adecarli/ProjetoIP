@@ -4,6 +4,9 @@ import classesBasicas.*;
 import dados.*;
 import exceptions.*;
 
+//uma alteração de teste
+//testando
+
 public class Hotel {
 	private CadastroQuartos cadQuartos;
 	private CadastroProdutos cadProdutos;
@@ -23,20 +26,16 @@ public class Hotel {
 	
 	//Metodos relacionados a Quarto
 	
-	public void cadastrarQuarto(String numero, double valorDiaria, String tipo) throws ValorDiariaInvalidoException, QuartoJaCadastradoException, TipoQuartoInvalidoException {
-		if (valorDiaria >= 0) {
-			QuartoAbstrato temp;
-			if (tipo.equals("Standard")) {
-				temp = new QuartoStandard(numero, valorDiaria);
-			} else if (tipo.equals("Luxo")) {
-				temp = new QuartoLuxo(numero, valorDiaria); 
-			} else {
-				throw new TipoQuartoInvalidoException();
-			}
-			cadQuartos.cadastrar(temp);			
+	public void cadastrarQuarto(String numero, double valorDiaria, String tipo) throws QuartoJaCadastradoException, TipoQuartoInvalidoException {
+		QuartoAbstrato temp;
+		if (tipo.equals("Standard")) {
+			temp = new QuartoStandard(numero, valorDiaria);
+		} else if (tipo.equals("Luxo")) {
+			temp = new QuartoLuxo(numero, valorDiaria); 
 		} else {
-			throw new ValorDiariaInvalidoException();
+			throw new TipoQuartoInvalidoException();
 		}
+		cadQuartos.cadastrar(temp);
 	}
 	public void removerQuarto(String numero) throws QuartoNaoEncontradoException, QuartoOcupadoException {
 		QuartoAbstrato target = cadQuartos.procurar(numero);
@@ -44,47 +43,6 @@ public class Hotel {
 			cadQuartos.remover(numero);
 		} else {
 			throw new QuartoOcupadoException(numero, target.getHospede());
-		}
-	}
-	public void atualizarQuarto(String numero, double valorDiaria, String tipo) throws QuartoNaoEncontradoException, TipoQuartoInvalidoException {
-		if (tipo.equals("Standard")) {
-			cadQuartos.atualizar(new QuartoStandard(numero, valorDiaria));
-		} else if (tipo.equals("Luxo")) {
-			cadQuartos.atualizar(new QuartoLuxo(numero, valorDiaria));
-		} else {
-			throw new TipoQuartoInvalidoException();
-		}
-	}
-	public void adicionarCama(String numero) throws QuartoNaoEncontradoException, QuartoOcupadoException, AdicionarCamaException, CamaExtraPresenteException {
-		QuartoAbstrato quarto = cadQuartos.procurar(numero);
-		if (quarto instanceof QuartoLuxo) {
-			if (quarto.getHospede() == null) {
-				if (!((QuartoLuxo) quarto).getCamaExtra()) {
-					((QuartoLuxo) quarto).adicionarCama();									
-				} else {
-					throw new CamaExtraPresenteException();
-				}
-			} else {
-				throw new QuartoOcupadoException(numero, quarto.getHospede());
-			}
-		} else {
-			throw new AdicionarCamaException();
-		}
-	}
-	public void removerCama(String numero) throws QuartoNaoEncontradoException, CamaExtraAusenteException, QuartoOcupadoException, AdicionarCamaException {
-		QuartoAbstrato quarto = cadQuartos.procurar(numero);
-		if (quarto instanceof QuartoLuxo) {
-			if (quarto.getHospede() == null) {
-				if (((QuartoLuxo) quarto).getCamaExtra()) {
-					((QuartoLuxo) quarto).removerCama();									
-				} else {
-					throw new CamaExtraAusenteException();
-				}
-			} else {
-				throw new QuartoOcupadoException(numero, quarto.getHospede());
-			}
-		} else {
-			throw new AdicionarCamaException();
 		}
 	}
 	public void checkin(String numeroQuarto, String cpfCliente, int numDias) throws QuartoNaoEncontradoException, ClienteNaoEncontradoException, QuartoOcupadoException {
@@ -97,39 +55,25 @@ public class Hotel {
 		}
 	}
 	//Este metodo relaciona QuartoAbstrato e Cliente
+	//Possibilidades: Ao inves de o metodo retornar um double, ele retorna void e acrescenta
+	//o valor recebido por "quarto.checkout()" ao atributo "gastos" de Cliente
 	public void checkoutQuarto(String numeroQuarto) throws QuartoNaoEncontradoException, QuartoVazioException {
 		QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
-		if (quarto.getHospede() != null) {
-			Cliente hospede = quarto.getHospede();
-			double total = quarto.checkout();
-			hospede.totalGastos(total);			
-		} else {
-			throw new QuartoVazioException(numeroQuarto);
-		}
+		Cliente hospede = quarto.getHospede();
+		double total = quarto.checkout();
+		hospede.totalGastos(total);
 	}
 	public String listarQuartos() {
 		String s = "Listagem de Quartos\n" + cadQuartos.toString();
 		return s;
 	}
 	//Este metodo relaciona QuartoAbstrato e Funcionario
-	public void limparQuarto(String numeroQuarto, String cpfFuncionario, double gorjeta) throws QuartoNaoEncontradoException, FuncionarioNaoEncontradoException, QuartoVazioException, QuartoLimpoException, GorjetaInvalidaException {
-		if (gorjeta >= 0) {
-			QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
-			if (quarto.getHospede() != null) { 
-				if (!quarto.getLimpo()) {
-					quarto.pedido(taxaLimpeza);
-					Funcionario funcionario = cadFuncionarios.procurar(cpfFuncionario);
-					funcionario.trabalhar(gorjeta);
-					quarto.limpar();				
-				} else {
-					throw new QuartoLimpoException(numeroQuarto);
-				}
-			} else {
-				throw new QuartoVazioException(numeroQuarto);
-			}
-		} else {
-			throw new GorjetaInvalidaException();
-		}
+	public void limparQuarto(String numeroQuarto, String cpfFuncionario, double gorjeta) throws QuartoNaoEncontradoException, FuncionarioNaoEncontradoException {
+		QuartoAbstrato quarto = cadQuartos.procurar(numeroQuarto);
+		quarto.pedido(taxaLimpeza);
+		Funcionario funcionario = cadFuncionarios.procurar(cpfFuncionario);
+		funcionario.trabalhar(gorjeta);
+		quarto.limpar();
 	}
 	
 	//Metodos relacionados a Funcionario
@@ -150,25 +94,38 @@ public class Hotel {
 	
 	public Funcionario procurarFuncionario(String CPF) throws FuncionarioNaoEncontradoException{
 		return cadFuncionarios.procurar(CPF);
-	} 
-	
+	}
+
 	public String listarFuncionarios(){
 		String listagem = "Listagem de Funcionarios: \n" + cadFuncionarios.toString();
 		return listagem;
 	}
-	//Metodos relacionados a Cliente
 	
+			//Metodos relacionados a Cliente
+	
+	//cadastra o cliente 
 	public void cadastrarCliente(String nome, String cpf) throws ClienteJaCadastradoException{
 		Cliente cliente = new Cliente(nome, cpf);
 		cadClientes.cadastrar(cliente);
 	}
+	
+	//atualiza dados do cliente
 	public void atualizarCliente(String nome, String cpf) throws ClienteNaoEncontradoException {
 		Cliente cliente = new Cliente(nome, cpf);
 		cadClientes.atualizar(cliente);
 	}
+	
+	//retorna os gastos de um cliente
+	public double gastosCliente(String CPF) throws ClienteNaoEncontradoException {
+		return cadClientes.gastosCliente(CPF);
+	}
+	
+	//remove um cliente do repositorio
 	public void removerCliente(String cpf) throws ClienteNaoEncontradoException {
 		cadClientes.remover(cpf);
 	}
+	
+	//faz checkout, retornando o valor da conta e removendo ele da lista
 	public double checkoutCliente(String cpf) throws ClienteNaoEncontradoException { // vai  
 		double gastos = cadQuartos.checkoutCliente(cpf);
 		cadClientes.adicionarGastos(cpf, gastos);
@@ -181,15 +138,14 @@ public class Hotel {
 		String s = "Listagem de Clientes\n" + cadClientes.toString();
 		return s;
 	}
-	
 	//Metodos relacionados a Produto
 	
 	public void cadastrarProduto (String nome, double preco, int quantidade) throws QuantidadeInvalidaException,PrecoInvalidoException, ProdutoJaCadastradoException, ProdutoNaoCadastradoException{
-		//verifica se o preco Ã© maior que 0
+		//verifica se o preco é maior que 0
 		if(preco<=0){
 			throw new PrecoInvalidoException();
 		}
-		//verifica se a quantidade Ã© maior que 0
+		//verifica se a quantidade é maior que 0
 
 		if(quantidade<=0){
 			throw new QuantidadeInvalidaException();
@@ -209,28 +165,23 @@ public class Hotel {
 		cadProdutos.atualizarPreco(nome, preco);
 	}
 	public void renovarEstoque(String nome, int quantidade) throws ProdutoNaoCadastradoException, QuantidadeInvalidaException{
-		//se o estoque estiver zerado, lanÃ§a o erro
+		//se o estoque estiver zerado, lança o erro
 		if (quantidade<=0){
 			throw new QuantidadeInvalidaException();
 		}
 		else
 		cadProdutos.renovarEstoque(nome, quantidade);
 	}
-		//retorna uma string com as informaÃ§oes do Produto
 	public String visualizarEstoque(){
 		return cadProdutos.visualizarEstoque();
 	}
-	//retorna uma string com o cardapio
-	public String informacoesProduto(String nome)throws ProdutoNaoCadastradoException{
-		return cadProdutos.informacoesProduto(nome);
-	}
-	public void fazerPedido(String cpf, String produto, int qtde) throws QuantidadeInvalidaException,EstoqueInsuficienteException,ProdutoNaoCadastradoException, ClienteNaoEncontradoException{
-		if (qtde<=0){
+	public void fazerPedido(String cpf, String produto, int qtde) throws EstoqueInsuficienteException,ProdutoNaoCadastradoException, ClienteNaoEncontradoException, QuantidadeInvalidaException{
+		if(qtde <=0){
 			throw new QuantidadeInvalidaException();
 		}
 		Produto pedido = cadProdutos.procurarProduto(produto);
 		if (pedido==null){
-			throw new ProdutoNaoCadastradoException(produto);
+			throw new ProdutoNaoCadastradoException();
 		}
 		else{
 		//verifica se tem a quantidade certa para fazer uma retirada no estoque
@@ -247,3 +198,13 @@ public class Hotel {
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
