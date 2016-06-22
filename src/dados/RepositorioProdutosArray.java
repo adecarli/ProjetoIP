@@ -6,9 +6,25 @@ import exceptions.*;
 public class RepositorioProdutosArray implements RepositorioProdutos {
 	private Produto[] arrayProdutos;
 	private int indice;
+	private int tamanho;
 	public RepositorioProdutosArray() {
 		this.arrayProdutos = new Produto[20];
 		this.indice = 0;
+		this.tamanho=20;
+	}
+	public RepositorioProdutosArray(int tamanho) {
+		this.arrayProdutos = new Produto[tamanho];
+		this.indice = 0;
+		this.tamanho=tamanho;
+	}
+	public int getIndice() {
+		return indice;
+	}
+	public int getTamanho() {
+		return tamanho;
+	}
+	public Produto getProduto(int indice){
+		return arrayProdutos[indice];
 	}
 	@Override
 	public void cadastrar(Produto produto){

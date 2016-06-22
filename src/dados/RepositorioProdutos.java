@@ -3,6 +3,8 @@ import classesBasicas.Produto;
 import exceptions.*;
 
 public interface RepositorioProdutos {
+	int getIndice();
+	int getTamanho();
 	void cadastrar(Produto produto);
 
 	Produto procurar(String nome);

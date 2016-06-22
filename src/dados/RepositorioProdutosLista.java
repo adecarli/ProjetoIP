@@ -4,12 +4,18 @@ import classesBasicas.Produto;
 public class RepositorioProdutosLista implements RepositorioProdutos {
 	private Produto produto;
 	private RepositorioProdutosLista proximo;
-
+	private int tamanho=1;
+	private int indice=0;
 	public RepositorioProdutosLista() {
 		this.produto = null;
 		this.proximo = null;
 	}
-
+	public int getIndice() {
+		return indice;
+	}
+	public int getTamanho() {
+		return tamanho;
+	}
 	@Override
 	// aqui cadastra
 	public void cadastrar(Produto produto){
